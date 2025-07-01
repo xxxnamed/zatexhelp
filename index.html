@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zatex Bot Help</title>
   <style>
     * {
@@ -16,7 +17,6 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      transition: all 0.3s;
     }
     .rtl {
       direction: rtl;
@@ -25,6 +25,7 @@
     h1 {
       text-align: center;
       margin-bottom: 1em;
+      font-size: 1.8rem;
     }
     .section {
       margin-bottom: 1em;
@@ -39,6 +40,7 @@
       justify-content: space-between;
       align-items: center;
       transition: background 0.2s;
+      font-size: 1rem;
     }
     .section-summary:hover {
       background: #2a2a2a;
@@ -52,17 +54,19 @@
       transform: rotate(180deg);
     }
     .section-details {
-      max-height: 0;
-      overflow: hidden;
       background: #111;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease;
       padding: 0 20px;
-      line-height: 1.5;
       border-top: 1px solid #333;
-      transition: max-height 0.4s ease, padding 0.4s ease;
     }
     .section-details.open {
+      opacity: 1;
       padding: 15px 20px;
     }
+
     ul {
       padding-left: 20px;
       margin: 10px 0;
@@ -74,7 +78,6 @@
       margin: 12px 0;
     }
 
-    /* Language selector moved to footer */
     footer {
       margin-top: auto;
       text-align: center;
@@ -83,7 +86,7 @@
     select {
       background: #333;
       color: #fff;
-      padding: 8px 15px;
+      padding: 10px 15px;
       border-radius: 5px;
       border: none;
       font-size: 16px;
@@ -95,9 +98,12 @@
       body {
         padding: 15px 10px;
       }
+      h1 {
+        font-size: 1.5rem;
+      }
       .section-summary {
         padding: 12px 15px;
-        font-size: 16px;
+        font-size: 0.95rem;
       }
     }
   </style>
@@ -166,16 +172,11 @@
       titleElement.textContent = langData.title;
 
       for (let i = 0; i < 4; i++) {
-        sectionTitles[i].textContent = langData[`section${i+1}_title`];
-        sectionContents[i].innerHTML = langData[`section${i+1}_content`];
+        sectionTitles[i].textContent = langData[`section${i + 1}_title`];
+        sectionContents[i].innerHTML = langData[`section${i + 1}_content`];
       }
 
-      if (lang === 'ar') {
-        document.body.classList.add('rtl');
-      } else {
-        document.body.classList.remove('rtl');
-      }
-
+      document.body.classList.toggle('rtl', lang === 'ar');
       langSelector.value = lang;
       localStorage.setItem('preferredLang', lang);
     }
@@ -183,22 +184,34 @@
     function detectLanguage() {
       const savedLang = localStorage.getItem('preferredLang');
       if (savedLang) return savedLang;
-
       const browserLang = navigator.language.slice(0, 2);
       return Object.keys(translations).includes(browserLang) ? browserLang : 'en';
     }
 
     function initAccordion() {
       document.querySelectorAll('.section-summary').forEach(summary => {
-        summary.addEventListener('click', function () {
-          this.classList.toggle('active');
-          const details = this.nextElementSibling;
-          if (details.classList.contains('open')) {
-            details.style.maxHeight = null;
-            details.classList.remove('open');
+        const details = summary.nextElementSibling;
+        summary.addEventListener('click', () => {
+          const isOpen = details.classList.contains('open');
+
+          if (isOpen) {
+            details.style.maxHeight = details.scrollHeight + 'px'; // Set to current height for animation
+            requestAnimationFrame(() => {
+              details.classList.remove('open');
+              details.style.maxHeight = '0';
+            });
           } else {
-            details.style.maxHeight = details.scrollHeight + 'px';
             details.classList.add('open');
+            details.style.maxHeight = details.scrollHeight + 'px';
+          }
+
+          summary.classList.toggle('active');
+        });
+
+        // Clean up inline height after transition
+        details.addEventListener('transitionend', () => {
+          if (details.classList.contains('open')) {
+            details.style.maxHeight = 'none';
           }
         });
       });
@@ -207,9 +220,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       setLanguage(detectLanguage());
       initAccordion();
-      langSelector.addEventListener('change', (e) => {
-        setLanguage(e.target.value);
-      });
+      langSelector.addEventListener('change', e => setLanguage(e.target.value));
     });
   </script>
 </body>
