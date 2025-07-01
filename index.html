@@ -4,11 +4,18 @@
   <meta charset="UTF-8">
   <title>Zatex Bot Help</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       background-color: #000;
       color: #eee;
       font-family: sans-serif;
       padding: 20px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
       transition: all 0.3s;
     }
     .rtl {
@@ -18,18 +25,6 @@
     h1 {
       text-align: center;
       margin-bottom: 1em;
-    }
-    .language-selector {
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    select {
-      background: #333;
-      color: #fff;
-      padding: 8px 15px;
-      border-radius: 5px;
-      border: none;
-      font-size: 16px;
     }
     .section {
       margin-bottom: 1em;
@@ -57,11 +52,16 @@
       transform: rotate(180deg);
     }
     .section-details {
-      display: none;
+      max-height: 0;
+      overflow: hidden;
       background: #111;
-      padding: 15px 20px;
+      padding: 0 20px;
       line-height: 1.5;
       border-top: 1px solid #333;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+    }
+    .section-details.open {
+      padding: 15px 20px;
     }
     ul {
       padding-left: 20px;
@@ -73,37 +73,36 @@
     p {
       margin: 12px 0;
     }
+
+    /* Language selector moved to footer */
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 20px 10px 10px;
+    }
+    select {
+      background: #333;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+      width: 100%;
+      max-width: 300px;
+    }
+
     @media (max-width: 600px) {
       body {
         padding: 15px 10px;
       }
       .section-summary {
         padding: 12px 15px;
-      }
-      select {
-        width: 100%;
-        max-width: 300px;
+        font-size: 16px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="language-selector">
-    <select id="langSelector">
-      <option value="en">English</option>
-      <option value="ru">Русский</option>
-      <option value="ja">日本語</option>
-      <option value="ko">한국어</option>
-      <option value="zh">中文</option>
-      <option value="es">Español</option>
-      <option value="pt">Português</option>
-      <option value="fr">Français</option>
-      <option value="id">Bahasa Indonesia</option>
-      <option value="tr">Türkçe</option>
-      <option value="ar">العربية</option>
-    </select>
-  </div>
-
   <h1 id="title">Zatex Bot Help</h1>
 
   <div class="section">
@@ -126,9 +125,26 @@
     <div class="section-details" id="section4_content"></div>
   </div>
 
+  <footer>
+    <div class="language-selector">
+      <select id="langSelector">
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="zh">中文</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+        <option value="fr">Français</option>
+        <option value="id">Bahasa Indonesia</option>
+        <option value="tr">Türkçe</option>
+        <option value="ar">العربية</option>
+      </select>
+    </div>
+  </footer>
+
   <script src="languages.js"></script>
   <script>
-    // DOM elements
     const langSelector = document.getElementById('langSelector');
     const titleElement = document.getElementById('title');
     const sectionTitles = [
@@ -144,65 +160,53 @@
       document.getElementById('section4_content')
     ];
 
-    // Set language function
     function setLanguage(lang) {
       const langData = translations[lang] || translations.en;
-      
-      // Update text content
+
       titleElement.textContent = langData.title;
-      
+
       for (let i = 0; i < 4; i++) {
         sectionTitles[i].textContent = langData[`section${i+1}_title`];
         sectionContents[i].innerHTML = langData[`section${i+1}_content`];
       }
-      
-      // Update RTL for Arabic
+
       if (lang === 'ar') {
         document.body.classList.add('rtl');
       } else {
         document.body.classList.remove('rtl');
       }
-      
-      // Update selector
+
       langSelector.value = lang;
-      
-      // Save preference
       localStorage.setItem('preferredLang', lang);
     }
 
-    // Detect preferred language
     function detectLanguage() {
-      // Check saved preference
       const savedLang = localStorage.getItem('preferredLang');
       if (savedLang) return savedLang;
-      
-      // Get browser language
+
       const browserLang = navigator.language.slice(0, 2);
-      
-      // Check if supported
       return Object.keys(translations).includes(browserLang) ? browserLang : 'en';
     }
 
-    // Initialize accordion functionality
     function initAccordion() {
       document.querySelectorAll('.section-summary').forEach(summary => {
-        summary.addEventListener('click', function() {
+        summary.addEventListener('click', function () {
           this.classList.toggle('active');
           const details = this.nextElementSibling;
-          details.style.display = details.style.display === 'block' ? 'none' : 'block';
+          if (details.classList.contains('open')) {
+            details.style.maxHeight = null;
+            details.classList.remove('open');
+          } else {
+            details.style.maxHeight = details.scrollHeight + 'px';
+            details.classList.add('open');
+          }
         });
       });
     }
 
-    // Initialize application
     document.addEventListener('DOMContentLoaded', () => {
-      // Set initial language
       setLanguage(detectLanguage());
-      
-      // Initialize accordion
       initAccordion();
-      
-      // Language selector event
       langSelector.addEventListener('change', (e) => {
         setLanguage(e.target.value);
       });
