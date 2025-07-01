@@ -17,6 +17,7 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      scroll-behavior: smooth;
     }
     .rtl {
       direction: rtl;
@@ -45,12 +46,14 @@
     .section-summary:hover {
       background: #2a2a2a;
     }
-    .section-summary::after {
-      content: "▼";
-      font-size: 0.8em;
-      transition: transform 0.3s;
+    .section-summary svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s ease;
+      fill: #aaa;
+      margin-left: 10px;
     }
-    .section-summary.active::after {
+    .section-summary.active svg {
       transform: rotate(180deg);
     }
     .section-details {
@@ -111,23 +114,35 @@
 <body>
   <h1 id="title">Zatex Bot Help</h1>
 
-  <div class="section">
-    <div class="section-summary" id="section1_title">Parameters — what does each one control?</div>
+  <div class="section" id="section1">
+    <div class="section-summary" id="section1_title">
+      Parameters — what does each one control?
+      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+    </div>
     <div class="section-details" id="section1_content"></div>
   </div>
 
-  <div class="section">
-    <div class="section-summary" id="section2_title">Soft pity — what is it and how does it work?</div>
+  <div class="section" id="section2">
+    <div class="section-summary" id="section2_title">
+      Soft pity — what is it and how does it work?
+      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+    </div>
     <div class="section-details" id="section2_content"></div>
   </div>
 
-  <div class="section">
-    <div class="section-summary" id="section3_title">Simulation modes — what's the difference?</div>
+  <div class="section" id="section3">
+    <div class="section-summary" id="section3_title">
+      Simulation modes — what's the difference?
+      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+    </div>
     <div class="section-details" id="section3_content"></div>
   </div>
 
-  <div class="section">
-    <div class="section-summary" id="section4_title">Limits — why do they exist and how to bypass?</div>
+  <div class="section" id="section4">
+    <div class="section-summary" id="section4_title">
+      Limits — why do they exist and how to bypass?
+      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+    </div>
     <div class="section-details" id="section4_content"></div>
   </div>
 
@@ -172,7 +187,7 @@
       titleElement.textContent = langData.title;
 
       for (let i = 0; i < 4; i++) {
-        sectionTitles[i].textContent = langData[`section${i + 1}_title`];
+        sectionTitles[i].childNodes[0].textContent = langData[`section${i + 1}_title`];
         sectionContents[i].innerHTML = langData[`section${i + 1}_content`];
       }
 
@@ -195,7 +210,7 @@
           const isOpen = details.classList.contains('open');
 
           if (isOpen) {
-            details.style.maxHeight = details.scrollHeight + 'px'; // Set to current height for animation
+            details.style.maxHeight = details.scrollHeight + 'px';
             requestAnimationFrame(() => {
               details.classList.remove('open');
               details.style.maxHeight = '0';
@@ -208,7 +223,6 @@
           summary.classList.toggle('active');
         });
 
-        // Clean up inline height after transition
         details.addEventListener('transitionend', () => {
           if (details.classList.contains('open')) {
             details.style.maxHeight = 'none';
@@ -217,11 +231,32 @@
       });
     }
 
+    function openSectionByHash() {
+      const hash = window.location.hash;
+      if (hash && hash.startsWith("#section")) {
+        const section = document.querySelector(hash);
+        const summary = section?.querySelector('.section-summary');
+        const details = section?.querySelector('.section-details');
+
+        if (summary && details) {
+          details.classList.add('open');
+          summary.classList.add('active');
+          details.style.maxHeight = details.scrollHeight + 'px';
+          setTimeout(() => {
+            section.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 100);
+        }
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       setLanguage(detectLanguage());
       initAccordion();
       langSelector.addEventListener('change', e => setLanguage(e.target.value));
+      openSectionByHash();
     });
+
+    window.addEventListener('hashchange', openSectionByHash);
   </script>
 </body>
 </html>
