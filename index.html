@@ -19,6 +19,7 @@
       flex-direction: column;
       min-height: 100vh;
       scroll-behavior: smooth;
+      position: relative;
     }
 
     .rtl {
@@ -36,6 +37,8 @@
       margin-bottom: 1em;
       border-radius: 8px;
       overflow: hidden;
+      position: relative;
+      z-index: 1;
     }
 
     .section-summary {
@@ -96,61 +99,75 @@
 
     footer {
       margin-top: auto;
-      text-align: center;
       padding: 20px 10px 10px;
+      position: relative;
+      z-index: 2;
     }
 
     .language-selector {
-      display: flex;
-      justify-content: center;
+      max-width: 300px;
+      margin: 0 auto;
     }
 
-    .lang-wrapper {
-      display: flex;
-      align-items: center;
+    .lang-toggle {
+      cursor: pointer;
       background: #222;
+      padding: 12px 16px;
       border-radius: 6px;
-      padding: 8px 12px;
-      position: relative;
-      max-width: 300px;
-      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1rem;
       transition: background 0.2s;
     }
 
-    .lang-wrapper:hover {
+    .lang-toggle:hover {
       background: #2a2a2a;
     }
 
-    .lang-wrapper:focus-within {
-      background: #2a2a2a;
-      outline: none;
+    .lang-toggle svg {
+      width: 20px;
+      height: 20px;
+      fill: #aaa;
+      transition: transform 0.3s ease;
     }
 
-    .lang-wrapper select {
-      background: transparent;
+    .lang-toggle.active svg {
+      transform: rotate(180deg);
+    }
+
+    .lang-content {
+      position: absolute;
+      bottom: 60px;
+      left: 0;
+      right: 0;
+      max-height: 0;
+      overflow: hidden;
+      background: #111;
+      opacity: 0;
+      transition: max-height 0.3s ease, opacity 0.2s ease;
+      z-index: 10;
+      padding: 0 20px;
+    }
+
+    .lang-content.open {
+      max-height: 500px;
+      opacity: 1;
+      padding: 20px;
+    }
+
+    .lang-content select {
+      width: 100%;
+      max-width: 300px;
+      background: #333;
       color: #fff;
       border: none;
       font-size: 16px;
-      width: 100%;
-      appearance: none;
-      padding-right: 30px;
-      cursor: pointer;
-      outline: none;
-    }
-
-    .lang-wrapper svg {
-      position: absolute;
-      right: 12px;
-      pointer-events: none;
-      fill: #aaa;
-      width: 20px;
-      height: 20px;
+      padding: 10px 14px;
+      border-radius: 6px;
     }
 
     @media (max-width: 600px) {
-      body {
-        padding: 15px 10px;
-      }
       h1 {
         font-size: 1.5rem;
       }
@@ -158,14 +175,8 @@
         padding: 10px 14px;
         font-size: 0.9rem;
       }
-      .section-summary svg {
-        width: 20px;
-        height: 20px;
-      }
-      .lang-wrapper select {
-        font-size: 15px;
-      }
-      .lang-wrapper svg {
+      .section-summary svg,
+      .lang-toggle svg {
         width: 18px;
         height: 18px;
       }
@@ -175,7 +186,7 @@
 <body>
   <h1 id="title">Zatex Bot Help</h1>
 
-  <!-- Sections -->
+  <!-- Main content sections -->
   <div class="section" id="section1">
     <div class="section-summary" id="section1_title">
       Parameters — what does each one control?
@@ -208,10 +219,14 @@
     <div class="section-details" id="section4_content"></div>
   </div>
 
-  <!-- Language selector -->
+  <!-- Language Accordion -->
   <footer>
     <div class="language-selector">
-      <div class="lang-wrapper">
+      <div class="lang-toggle" id="langAccordionToggle">
+        Language
+        <svg viewBox="0 0 24 24"><path d="M7 14l5-5 5 5z" /></svg>
+      </div>
+      <div class="lang-content" id="langAccordionContent">
         <select id="langSelector">
           <option value="en">English</option>
           <option value="ru">Русский</option>
@@ -225,16 +240,16 @@
           <option value="tr">Türkçe</option>
           <option value="ar">العربية</option>
         </select>
-        <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>
       </div>
     </div>
   </footer>
 
-  <!-- Script -->
   <script src="languages.js"></script>
   <script>
     const langSelector = document.getElementById("langSelector");
-    const titleElement = document.getElementById("title");
+    const langToggle = document.getElementById("langAccordionToggle");
+    const langContent = document.getElementById("langAccordionContent");
+
     const sectionTitles = [
       document.getElementById("section1_title"),
       document.getElementById("section2_title"),
@@ -247,12 +262,14 @@
       document.getElementById("section3_content"),
       document.getElementById("section4_content"),
     ];
+    const titleElement = document.getElementById("title");
 
     function setLanguage(lang) {
       const langData = translations[lang] || translations.en;
       titleElement.textContent = langData.title;
       for (let i = 0; i < 4; i++) {
-        sectionTitles[i].childNodes[0].textContent = langData[`section${i + 1}_title`];
+        sectionTitles[i].childNodes[0].textContent =
+          langData[`section${i + 1}_title`];
         sectionContents[i].innerHTML = langData[`section${i + 1}_content`];
       }
       document.body.classList.toggle("rtl", lang === "ar");
@@ -264,7 +281,9 @@
       const savedLang = localStorage.getItem("preferredLang");
       if (savedLang) return savedLang;
       const browserLang = navigator.language.slice(0, 2);
-      return Object.keys(translations).includes(browserLang) ? browserLang : "en";
+      return Object.keys(translations).includes(browserLang)
+        ? browserLang
+        : "en";
     }
 
     function initAccordion() {
@@ -311,10 +330,17 @@
       }
     }
 
+    langToggle.addEventListener("click", () => {
+      langContent.classList.toggle("open");
+      langToggle.classList.toggle("active");
+    });
+
     document.addEventListener("DOMContentLoaded", () => {
       setLanguage(detectLanguage());
       initAccordion();
-      langSelector.addEventListener("change", (e) => setLanguage(e.target.value));
+      langSelector.addEventListener("change", (e) =>
+        setLanguage(e.target.value)
+      );
       openSectionByHash();
     });
 
