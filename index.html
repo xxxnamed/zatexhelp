@@ -47,10 +47,11 @@
       background: #2a2a2a;
     }
     .section-summary svg {
-      width: 32px;
-      height: 32px;
+      width: 24px;
+      height: 24px;
       transition: transform 0.3s ease;
       fill: #aaa;
+      flex-shrink: 0;
       margin-left: 10px;
     }
     .section-summary.active svg {
@@ -61,7 +62,7 @@
       overflow: hidden;
       max-height: 0;
       opacity: 0;
-      transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease;
+      transition: max-height 0.3s ease, opacity 0.2s ease, padding 0.3s ease;
       padding: 0 20px;
       border-top: 1px solid #333;
     }
@@ -86,7 +87,13 @@
       text-align: center;
       padding: 20px 10px 10px;
     }
-    select {
+    .language-selector {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+    .language-selector select {
       background: #333;
       color: #fff;
       padding: 10px 15px;
@@ -95,24 +102,35 @@
       font-size: 16px;
       width: 100%;
       max-width: 300px;
+      appearance: none;
+    }
+    .language-selector svg {
+      width: 24px;
+      height: 24px;
+      fill: #aaa;
+      pointer-events: none;
     }
 
-@media (max-width: 600px) {
-  body {
-    padding: 15px 10px;
-  }
-  h1 {
-    font-size: 1.5rem;
-  }
-  .section-summary {
-    padding: 10px 14px;
-    font-size: 0.85rem;
-  }
-  .section-summary svg {
-    width: 20px;
-    height: 20px;
-  }
-}
+    @media (max-width: 600px) {
+      body {
+        padding: 15px 10px;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      .section-summary {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+      }
+      .section-summary svg {
+        width: 20px;
+        height: 20px;
+      }
+      .language-selector svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -165,6 +183,7 @@
         <option value="tr">Türkçe</option>
         <option value="ar">العربية</option>
       </select>
+      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
     </div>
   </footer>
 
@@ -210,21 +229,22 @@
     function initAccordion() {
       document.querySelectorAll('.section-summary').forEach(summary => {
         const details = summary.nextElementSibling;
+
         summary.addEventListener('click', () => {
           const isOpen = details.classList.contains('open');
 
           if (isOpen) {
             details.style.maxHeight = details.scrollHeight + 'px';
             requestAnimationFrame(() => {
-              details.classList.remove('open');
               details.style.maxHeight = '0';
+              details.classList.remove('open');
+              summary.classList.remove('active');
             });
           } else {
             details.classList.add('open');
+            summary.classList.add('active');
             details.style.maxHeight = details.scrollHeight + 'px';
           }
-
-          summary.classList.toggle('active');
         });
 
         details.addEventListener('transitionend', () => {
