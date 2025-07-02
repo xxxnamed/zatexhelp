@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zatex Bot Help</title>
   <style>
-    * {
+    *
+    {
       box-sizing: border-box;
     }
 
-    body {
+    body
+    {
       background-color: #000;
       color: #eee;
       font-family: sans-serif;
@@ -21,24 +23,28 @@
       scroll-behavior: smooth;
     }
 
-    .rtl {
+    .rtl
+    {
       direction: rtl;
       text-align: right;
     }
 
-    h1 {
+    h1
+    {
       text-align: center;
       margin-bottom: 1em;
       font-size: 1.8rem;
     }
 
-    .section {
+    .section
+    {
       margin-bottom: 1em;
       border-radius: 8px;
       overflow: hidden;
     }
 
-    .section-summary {
+    .section-summary
+    {
       cursor: pointer;
       background: #222;
       padding: 14px 20px;
@@ -49,11 +55,13 @@
       font-size: 1rem;
     }
 
-    .section-summary:hover {
+    .section-summary:hover
+    {
       background: #2a2a2a;
     }
 
-    .section-summary svg {
+    .section-summary svg
+    {
       width: 24px;
       height: 24px;
       transition: transform 0.3s ease;
@@ -62,11 +70,13 @@
       margin-left: 10px;
     }
 
-    .section-summary.active svg {
+    .section-summary.active svg
+    {
       transform: rotate(180deg);
     }
 
-    .section-details {
+    .section-details
+    {
       background: #111;
       overflow: hidden;
       max-height: 0;
@@ -76,36 +86,43 @@
       border-top: 1px solid #333;
     }
 
-    .section-details.open {
+    .section-details.open
+    {
       opacity: 1;
       padding: 15px 20px;
     }
 
-    ul {
+    ul
+    {
       padding-left: 20px;
       margin: 10px 0;
     }
 
-    li {
+    li
+    {
       margin-bottom: 10px;
     }
 
-    p {
+    p
+    {
       margin: 12px 0;
     }
 
-    footer {
+    footer
+    {
       margin-top: auto;
       text-align: center;
       padding: 20px 10px 10px;
     }
 
-    .language-selector {
+    .language-selector
+    {
       display: flex;
       justify-content: center;
     }
 
-    .lang-wrapper {
+    .lang-wrapper
+    {
       display: flex;
       align-items: center;
       background: #222;
@@ -117,16 +134,19 @@
       transition: background 0.2s;
     }
 
-    .lang-wrapper:hover {
+    .lang-wrapper:hover
+    {
       background: #2a2a2a;
     }
 
-    .lang-wrapper:focus-within {
+    .lang-wrapper:focus-within
+    {
       background: #2a2a2a;
       outline: none;
     }
 
-    .lang-wrapper select {
+    .lang-wrapper select
+    {
       background: transparent;
       color: #fff;
       border: none;
@@ -138,34 +158,44 @@
       outline: none;
     }
 
-    .lang-wrapper svg {
+    .lang-wrapper svg
+    {
       position: absolute;
       right: 12px;
       pointer-events: none;
-      fill: #aaa;
+      stroke: #aaa;
+      stroke-width: 1.5;
+      fill: none;
       width: 20px;
       height: 20px;
     }
 
-    @media (max-width: 600px) {
-      body {
+    @media (max-width: 600px)
+    {
+      body
+      {
         padding: 15px 10px;
       }
-      h1 {
+      h1
+      {
         font-size: 1.5rem;
       }
-      .section-summary {
+      .section-summary
+      {
         padding: 10px 14px;
         font-size: 0.9rem;
       }
-      .section-summary svg {
+      .section-summary svg
+      {
         width: 20px;
         height: 20px;
       }
-      .lang-wrapper select {
+      .lang-wrapper select
+      {
         font-size: 15px;
       }
-      .lang-wrapper svg {
+      .lang-wrapper svg
+      {
         width: 18px;
         height: 18px;
       }
@@ -225,10 +255,10 @@
           <option value="tr">Türkçe</option>
           <option value="ar">العربية</option>
         </select>
-        <!-- Заменена стрелка на иконку глобуса -->
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <circle cx="12" cy="12" r="10" stroke="#aaa" stroke-width="1.5" fill="none"/>
-          <path fill="#aaa" d="M12 2a10 10 0 0 1 0 20M12 2a10 10 0 0 0 0 20M2 12h20M6 6l12 12M6 18L18 6" stroke="#aaa" stroke-width="1.5" />
+        <!-- Исправленная иконка глобуса -->
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" stroke="#aaa" stroke-width="1.5" fill="none" >
+          <circle cx="12" cy="12" r="10" />
+          <path d="M2 12h20M12 2a10 10 0 0 0 0 20M6 6l12 12M6 18L18 6" />
         </svg>
       </div>
     </div>
