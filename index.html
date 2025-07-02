@@ -5,34 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zatex Bot Help</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
-      background-color: #000;
+      background: #000;
       color: #eee;
       font-family: sans-serif;
-      padding: 20px;
       margin: 0;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
       scroll-behavior: smooth;
     }
-    .rtl {
-      direction: rtl;
-      text-align: right;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 1em;
-      font-size: 1.8rem;
-    }
-    .section {
-      margin-bottom: 1em;
-      border-radius: 8px;
-      overflow: hidden;
-    }
+    .rtl { direction: rtl; text-align: right; }
+    h1 { text-align: center; margin-bottom: 1em; font-size: 1.8rem; }
+    .section { margin-bottom: 1em; border-radius: 8px; overflow: hidden; }
     .section-summary {
       cursor: pointer;
       background: #222;
@@ -40,158 +27,120 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: background 0.2s;
       font-size: 1rem;
+      transition: background 0.2s;
     }
-    .section-summary:hover {
-      background: #2a2a2a;
-    }
+    .section-summary:hover { background: #2a2a2a; }
     .section-summary svg {
-      width: 24px;
-      height: 24px;
-      transition: transform 0.3s ease;
+      width: 24px; height: 24px;
       fill: #aaa;
-      flex-shrink: 0;
+      transition: transform 0.3s ease;
       margin-left: 10px;
     }
-    .section-summary.active svg {
-      transform: rotate(180deg);
-    }
+    .section-summary.active svg { transform: rotate(180deg); }
     .section-details {
       background: #111;
       overflow: hidden;
       max-height: 0;
       opacity: 0;
-      transition: max-height 0.3s ease, opacity 0.2s ease, padding 0.3s ease;
       padding: 0 20px;
       border-top: 1px solid #333;
+      transition: max-height 0.3s ease, opacity 0.2s ease, padding 0.3s ease;
     }
     .section-details.open {
       opacity: 1;
       padding: 15px 20px;
     }
-    ul {
-      padding-left: 20px;
-      margin: 10px 0;
-    }
-    li {
-      margin-bottom: 10px;
-    }
-    p {
-      margin: 12px 0;
-    }
-    .language-list {
-      list-style: none;
-      padding: 0;
-      margin: 10px 0;
-      display: flex;
-      /* Order languages from top to bottom */
-      flex-direction: column;
-    }
+    ul, .language-list { padding: 0; margin: 10px 0; list-style: none; }
+    .language-list { display: flex; flex-direction: column; }
     .language-item {
       padding: 10px;
       cursor: pointer;
       border-radius: 4px;
       transition: background 0.2s;
     }
-    .language-item:hover {
-      background: #2a2a2a;
-    }
-    .language-item.selected {
-      background: #444;
-    }
+    .language-item:hover { background: #2a2a2a; }
+    .language-item.selected { background: #444; }
+    /* Кнопка языка внизу */
     #section5 {
-      overflow: visible;
       position: relative;
-      margin-top: auto; /* Push this section to bottom */
+      margin-top: auto;
+      overflow: visible;
     }
     #section5 .section-summary {
-      position: relative;
-      z-index: 11;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #222;
+      z-index: 10;
     }
     #section5 .section-details {
-      position: absolute;
+      position: fixed;
       bottom: 100%;
       left: 0;
       width: 100%;
       z-index: 10;
     }
-    #section5 .section-summary svg {
-      transform: rotate(180deg);
-    }
-    #section5 .section-summary.active svg {
-      transform: rotate(360deg);
-    }
+    #section5 .section-summary svg { transform: rotate(180deg); }
+    #section5 .section-summary.active svg { transform: rotate(360deg); }
+    /* Оверлей */
     #overlay {
-      display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.5);
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
       z-index: 9;
-      /* Allow overlay to block clicks */
       pointer-events: auto;
     }
     @media (max-width: 600px) {
-      body {
-        padding: 15px 10px;
-      }
-      h1 {
-        font-size: 1.5rem;
-      }
-      .section-summary {
-        padding: 10px 14px;
-        font-size: 0.9rem;
-      }
-      .section-summary svg {
-        width: 20px;
-        height: 20px;
-      }
-      .language-item {
-        padding: 8px;
-        font-size: 15px;
-      }
+      body { padding: 15px 10px; }
+      h1 { font-size: 1.5rem; }
+      .section-summary { padding: 10px 14px; font-size: 0.9rem; }
+      .section-summary svg { width: 20px; height: 20px; }
+      .language-item { padding: 8px; font-size: 15px; }
     }
   </style>
 </head>
 <body>
   <h1 id="title">Zatex Bot Help</h1>
-  <!-- Sections -->
+
   <div class="section" id="section1">
     <div class="section-summary" id="section1_title">
       Parameters — what does each one control?
-      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>
+      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
     </div>
     <div class="section-details" id="section1_content"></div>
   </div>
+
   <div class="section" id="section2">
     <div class="section-summary" id="section2_title">
       Soft pity — what is it and how does it work?
-      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>
+      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
     </div>
     <div class="section-details" id="section2_content"></div>
   </div>
+
   <div class="section" id="section3">
     <div class="section-summary" id="section3_title">
       Simulation modes — what's the difference?
-      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>
+      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
     </div>
     <div class="section-details" id="section3_content"></div>
   </div>
+
   <div class="section" id="section4">
     <div class="section-summary" id="section4_title">
       Limits — why do they exist and how to bypass?
-      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>
+      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
     </div>
     <div class="section-details" id="section4_content"></div>
   </div>
-  <!-- Language section as accordion -->
+
   <div class="section" id="section5">
     <div class="section-summary" id="section5_title">
-      Language
-      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>
+      <span class="lang-label"></span>
+      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
     </div>
     <div class="section-details" id="section5_content">
       <ul class="language-list">
@@ -209,23 +158,37 @@
       </ul>
     </div>
   </div>
+
   <div id="overlay"></div>
-  <!-- Scripts -->
-  <script src="languages.js"></script>
+
   <script>
-    const titleElement = document.getElementById("title");
-    const sectionTitles = [
-      document.getElementById("section1_title"),
-      document.getElementById("section2_title"),
-      document.getElementById("section3_title"),
-      document.getElementById("section4_title"),
-    ];
-    const sectionContents = [
-      document.getElementById("section1_content"),
-      document.getElementById("section2_content"),
-      document.getElementById("section3_content"),
-      document.getElementById("section4_content"),
-    ];
+    // Пример объекта переводов (добавьте свои)
+    const translations = {
+      en: {
+        title: "Zatex Bot Help",
+        section1_title: "Parameters — what does each one control?",
+        section1_content: "<p>...</p>",
+        section2_title: "Soft pity — what is it and how does it work?",
+        section2_content: "<p>...</p>",
+        section3_title: "Simulation modes — what's the difference?",
+        section3_content: "<p>...</p>",
+        section4_title: "Limits — why do they exist and how to bypass?",
+        section4_content: "<p>...</p>"
+      },
+      ru: {
+        title: "Справка Zatex Bot",
+        section1_title: "Параметры — что за что отвечает?",
+        section1_content: "<p>...</p>",
+        section2_title: "Мягкий пит — что это и как работает?",
+        section2_content: "<p>...</p>",
+        section3_title: "Режимы симуляции — в чем разница?",
+        section3_content: "<p>...</p>",
+        section4_title: "Лимиты — зачем нужны и как обойти?",
+        section4_content: "<p>...</p>"
+      },
+      // ...другие языки
+    };
+
     const languageLabels = {
       en: "Language",
       ru: "Языки",
@@ -240,99 +203,95 @@
       ar: "اللغة"
     };
 
+    const titleEl = document.getElementById("title");
+    const summaries = [
+      document.getElementById("section1_title"),
+      document.getElementById("section2_title"),
+      document.getElementById("section3_title"),
+      document.getElementById("section4_title"),
+    ];
+    const contents = [
+      document.getElementById("section1_content"),
+      document.getElementById("section2_content"),
+      document.getElementById("section3_content"),
+      document.getElementById("section4_content"),
+    ];
+    const langLabelEl = document.querySelector("#section5_title .lang-label");
+    const overlay = document.getElementById("overlay");
+
+    function detectLanguage() {
+      const saved = localStorage.getItem("preferredLang");
+      if (saved) return saved;
+      const nav = navigator.language.slice(0,2);
+      return translations[nav] ? nav : "en";
+    }
+
     function setLanguage(lang) {
-      const langData = translations[lang] || translations.en;
-      titleElement.textContent = langData.title;
-      for (let i = 0; i < 4; i++) {
-        sectionTitles[i].childNodes[0].textContent = langData[\`section${i + 1}_title\`];
-        sectionContents[i].innerHTML = langData[\`section${i + 1}_content\`];
-      }
-      // Set the Language section title label
-      const section5Title = document.getElementById("section5_title");
-      section5Title.childNodes[0].textContent = languageLabels[lang] || languageLabels.en;
-      document.body.classList.toggle("rtl", lang === "ar");
+      const data = translations[lang];
+      titleEl.textContent = data.title;
+      summaries.forEach((el,i) => el.childNodes[0].textContent = data[`section${i+1}_title`]);
+      contents.forEach((el,i) => el.innerHTML = data[`section${i+1}_content`]);
+      langLabelEl.textContent = languageLabels[lang] || languageLabels.en;
+      document.body.classList.toggle("rtl", lang==="ar");
       document.querySelectorAll(".language-item").forEach(item => {
-        if (item.dataset.lang === lang) {
-          item.classList.add("selected");
-        } else {
-          item.classList.remove("selected");
-        }
+        item.classList.toggle("selected", item.dataset.lang === lang);
       });
       localStorage.setItem("preferredLang", lang);
     }
 
-    function detectLanguage() {
-      const savedLang = localStorage.getItem("preferredLang");
-      if (savedLang) return savedLang;
-      const browserLang = navigator.language.slice(0, 2);
-      return Object.keys(translations).includes(browserLang) ? browserLang : "en";
-    }
-
     function initAccordion() {
-      document.querySelectorAll(".section-summary").forEach((summary) => {
-        const details = summary.nextElementSibling;
-        summary.addEventListener("click", () => {
-          const isOpen = details.classList.contains("open");
-          if (isOpen) {
-            details.style.maxHeight = details.scrollHeight + "px";
+      document.querySelectorAll(".section-summary").forEach(s => {
+        const d = s.nextElementSibling;
+        s.addEventListener("click", () => {
+          const open = d.classList.contains("open");
+          if (open) {
+            d.style.maxHeight = d.scrollHeight + "px";
             requestAnimationFrame(() => {
-              details.style.maxHeight = "0";
-              details.classList.remove("open");
-              summary.classList.remove("active");
+              d.style.maxHeight = "0";
+              d.classList.remove("open");
+              s.classList.remove("active");
+              overlay.style.display = "none";
             });
           } else {
-            details.classList.add("open");
-            summary.classList.add("active");
-            details.style.maxHeight = details.scrollHeight + "px";
-          }
-          // Toggle overlay for Language section
-          if (summary.id === "section5_title") {
-            const overlay = document.getElementById("overlay");
-            if (isOpen) {
-              overlay.style.display = "none";
-            } else {
-              overlay.style.display = "block";
-            }
-          }
-        });
-
-        details.addEventListener("transitionend", () => {
-          if (details.classList.contains("open")) {
-            details.style.maxHeight = "none";
+            d.classList.add("open");
+            s.classList.add("active");
+            d.style.maxHeight = d.scrollHeight + "px";
+            overlay.style.display = "block";
           }
         });
       });
-    }
-
-    function openSectionByHash() {
-      const hash = window.location.hash;
-      if (hash && hash.startsWith("#section")) {
-        const section = document.querySelector(hash);
-        const summary = section?.querySelector(".section-summary");
-        const details = section?.querySelector(".section-details");
-        if (summary && details) {
-          details.classList.add("open");
-          summary.classList.add("active");
-          details.style.maxHeight = details.scrollHeight + "px";
-          setTimeout(() => {
-            section.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 100);
-        }
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      setLanguage(detectLanguage());
-      initAccordion();
       document.querySelectorAll(".language-item").forEach(item => {
         item.addEventListener("click", () => {
           setLanguage(item.dataset.lang);
+          // закрыть меню
+          const summary = document.getElementById("section5_title");
+          const details = document.getElementById("section5_content");
+          details.style.maxHeight = details.scrollHeight + "px";
+          requestAnimationFrame(() => {
+            details.style.maxHeight = "0";
+            details.classList.remove("open");
+            summary.classList.remove("active");
+            overlay.style.display = "none";
+          });
         });
       });
-      openSectionByHash();
-    });
+    }
 
-    window.addEventListener("hashchange", openSectionByHash);
+    document.addEventListener("DOMContentLoaded", () => {
+      const lang = detectLanguage();
+      setLanguage(lang);
+      initAccordion();
+      // открыть секцию по хешу
+      if (window.location.hash.startsWith("#section")) {
+        const sec = document.querySelector(window.location.hash);
+        const sum = sec.querySelector(".section-summary");
+        const det = sec.querySelector(".section-details");
+        det.classList.add("open");
+        sum.classList.add("active");
+        det.style.maxHeight = det.scrollHeight + "px";
+        setTimeout(()=> sec.scrollIntoView({behavior:"smooth"}),100);
+      }
+    });
   </script>
 </body>
 </html>
