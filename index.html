@@ -114,6 +114,16 @@
       position: relative;
       max-width: 300px;
       width: 100%;
+      transition: background 0.2s;
+    }
+
+    .lang-wrapper:hover {
+      background: #2a2a2a;
+    }
+
+    .lang-wrapper:focus-within {
+      background: #2a2a2a;
+      outline: none;
     }
 
     .lang-wrapper select {
@@ -125,6 +135,7 @@
       appearance: none;
       padding-right: 30px;
       cursor: pointer;
+      outline: none;
     }
 
     .lang-wrapper svg {
@@ -164,6 +175,7 @@
 <body>
   <h1 id="title">Zatex Bot Help</h1>
 
+  <!-- Sections -->
   <div class="section" id="section1">
     <div class="section-summary" id="section1_title">
       Parameters — what does each one control?
@@ -196,6 +208,7 @@
     <div class="section-details" id="section4_content"></div>
   </div>
 
+  <!-- Language selector -->
   <footer>
     <div class="language-selector">
       <div class="lang-wrapper">
@@ -217,6 +230,7 @@
     </div>
   </footer>
 
+  <!-- Script -->
   <script src="languages.js"></script>
   <script>
     const langSelector = document.getElementById("langSelector");
@@ -236,15 +250,11 @@
 
     function setLanguage(lang) {
       const langData = translations[lang] || translations.en;
-
       titleElement.textContent = langData.title;
-
       for (let i = 0; i < 4; i++) {
-        sectionTitles[i].childNodes[0].textContent =
-          langData[`section${i + 1}_title`];
+        sectionTitles[i].childNodes[0].textContent = langData[`section${i + 1}_title`];
         sectionContents[i].innerHTML = langData[`section${i + 1}_content`];
       }
-
       document.body.classList.toggle("rtl", lang === "ar");
       langSelector.value = lang;
       localStorage.setItem("preferredLang", lang);
@@ -254,9 +264,7 @@
       const savedLang = localStorage.getItem("preferredLang");
       if (savedLang) return savedLang;
       const browserLang = navigator.language.slice(0, 2);
-      return Object.keys(translations).includes(browserLang)
-        ? browserLang
-        : "en";
+      return Object.keys(translations).includes(browserLang) ? browserLang : "en";
     }
 
     function initAccordion() {
@@ -264,7 +272,6 @@
         const details = summary.nextElementSibling;
         summary.addEventListener("click", () => {
           const isOpen = details.classList.contains("open");
-
           if (isOpen) {
             details.style.maxHeight = details.scrollHeight + "px";
             requestAnimationFrame(() => {
@@ -293,7 +300,6 @@
         const section = document.querySelector(hash);
         const summary = section?.querySelector(".section-summary");
         const details = section?.querySelector(".section-details");
-
         if (summary && details) {
           details.classList.add("open");
           summary.classList.add("active");
@@ -308,9 +314,7 @@
     document.addEventListener("DOMContentLoaded", () => {
       setLanguage(detectLanguage());
       initAccordion();
-      langSelector.addEventListener("change", (e) =>
-        setLanguage(e.target.value)
-      );
+      langSelector.addEventListener("change", (e) => setLanguage(e.target.value));
       openSectionByHash();
     });
 
