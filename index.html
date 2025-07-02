@@ -85,7 +85,7 @@
       padding: 0;
       margin: 10px 0;
       display: flex;
-      flex-direction: column-reverse; /* Переворачиваем порядок пунктов */
+      flex-direction: column-reverse;
     }
     .language-item {
       padding: 10px;
@@ -99,28 +99,29 @@
     .language-item.selected {
       background: #444;
     }
+    #section5 {
+      position: relative;
+      margin-top: auto; /* Выталкивает этот раздел вниз flex-контейнера */
+    }
     #section5 .section-summary,
     #section5 .section-details {
       position: relative;
       z-index: 10;
-    }
-    #section5 {
-      position: relative;
     }
     #section5 .section-summary {
       z-index: 11;
     }
     #section5 .section-details {
       position: absolute;
-      bottom: 100%; /* Меню появляется вверх от кнопки */
+      bottom: 100%;
       left: 0;
       width: 100%;
     }
     #section5 .section-summary svg {
-      transform: rotate(180deg); /* Стрелка вверх по умолчанию */
+      transform: rotate(180deg);
     }
     #section5 .section-summary.active svg {
-      transform: rotate(360deg); /* Стрелка вниз при открытом меню */
+      transform: rotate(360deg);
     }
     #overlay {
       display: none;
@@ -131,6 +132,7 @@
       right: 0;
       background: rgba(0, 0, 0, 0.5);
       z-index: 5;
+      pointer-events: none; /* Позволяет кликам проходить через слой */
     }
     @media (max-width: 600px) {
       body {
@@ -229,8 +231,8 @@
       const langData = translations[lang] || translations.en;
       titleElement.textContent = langData.title;
       for (let i = 0; i < 4; i++) {
-        sectionTitles[i].childNodes[0].textContent = langData[\`section\${i + 1}_title\`];
-        sectionContents[i].innerHTML = langData[\`section\${i + 1}_content\`];
+        sectionTitles[i].childNodes[0].textContent = langData[`section${i + 1}_title`];
+        sectionContents[i].innerHTML = langData[`section${i + 1}_content`];
       }
       document.body.classList.toggle("rtl", lang === "ar");
       document.querySelectorAll(".language-item").forEach(item => {
