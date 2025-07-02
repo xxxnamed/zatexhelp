@@ -225,7 +225,11 @@
           <option value="tr">Türkçe</option>
           <option value="ar">العربية</option>
         </select>
-        <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>
+        <!-- Заменена стрелка на иконку глобуса -->
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="10" stroke="#aaa" stroke-width="1.5" fill="none"/>
+          <path fill="#aaa" d="M12 2a10 10 0 0 1 0 20M12 2a10 10 0 0 0 0 20M2 12h20M6 6l12 12M6 18L18 6" stroke="#aaa" stroke-width="1.5" />
+        </svg>
       </div>
     </div>
   </footer>
