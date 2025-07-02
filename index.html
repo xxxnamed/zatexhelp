@@ -1,361 +1,327 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zatex Bot Help</title>
-  <style>
-    *
-    {
-      box-sizing: border-box;
-    }
-
-    body
-    {
-      background-color: #000;
-      color: #eee;
-      font-family: sans-serif;
-      padding: 20px;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      scroll-behavior: smooth;
-    }
-
-    .rtl
-    {
-      direction: rtl;
-      text-align: right;
-    }
-
-    h1
-    {
-      text-align: center;
-      margin-bottom: 1em;
-      font-size: 1.8rem;
-    }
-
-    .section
-    {
-      margin-bottom: 1em;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .section-summary
-    {
-      cursor: pointer;
-      background: #222;
-      padding: 14px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background 0.2s;
-      font-size: 1rem;
-    }
-
-    .section-summary:hover
-    {
-      background: #2a2a2a;
-    }
-
-    .section-summary svg
-    {
-      width: 24px;
-      height: 24px;
-      transition: transform 0.3s ease;
-      fill: #aaa;
-      flex-shrink: 0;
-      margin-left: 10px;
-    }
-
-    .section-summary.active svg
-    {
-      transform: rotate(180deg);
-    }
-
-    .section-details
-    {
-      background: #111;
-      overflow: hidden;
-      max-height: 0;
-      opacity: 0;
-      transition: max-height 0.3s ease, opacity 0.2s ease, padding 0.3s ease;
-      padding: 0 20px;
-      border-top: 1px solid #333;
-    }
-
-    .section-details.open
-    {
-      opacity: 1;
-      padding: 15px 20px;
-    }
-
-    ul
-    {
-      padding-left: 20px;
-      margin: 10px 0;
-    }
-
-    li
-    {
-      margin-bottom: 10px;
-    }
-
-    p
-    {
-      margin: 12px 0;
-    }
-
-    footer
-    {
-      margin-top: auto;
-      text-align: center;
-      padding: 20px 10px 10px;
-    }
-
-    .language-selector
-    {
-      display: flex;
-      justify-content: center;
-    }
-
-    .lang-wrapper
-    {
-      display: flex;
-      align-items: center;
-      background: #222;
-      border-radius: 6px;
-      padding: 8px 12px;
-      position: relative;
-      max-width: 300px;
-      width: 100%;
-      transition: background 0.2s;
-    }
-
-    .lang-wrapper:hover
-    {
-      background: #2a2a2a;
-    }
-
-    .lang-wrapper:focus-within
-    {
-      background: #2a2a2a;
-      outline: none;
-    }
-
-    .lang-wrapper select
-    {
-      background: transparent;
-      color: #fff;
-      border: none;
-      font-size: 16px;
-      width: 100%;
-      appearance: none;
-      padding-right: 30px;
-      cursor: pointer;
-      outline: none;
-    }
-
-    .lang-wrapper svg
-    {
-      position: absolute;
-      right: 12px;
-      pointer-events: none;
-      stroke: #aaa;
-      stroke-width: 1.5;
-      fill: none;
-      width: 20px;
-      height: 20px;
-    }
-
-    @media (max-width: 600px)
-    {
-      body
-      {
-        padding: 15px 10px;
-      }
-      h1
-      {
-        font-size: 1.5rem;
-      }
-      .section-summary
-      {
-        padding: 10px 14px;
-        font-size: 0.9rem;
-      }
-      .section-summary svg
-      {
-        width: 20px;
-        height: 20px;
-      }
-      .lang-wrapper select
-      {
-        font-size: 15px;
-      }
-      .lang-wrapper svg
-      {
-        width: 18px;
-        height: 18px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <h1 id="title">Zatex Bot Help</h1>
-
-  <!-- Sections -->
-  <div class="section" id="section1">
-    <div class="section-summary" id="section1_title">
-      Parameters — what does each one control?
-      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>
-    </div>
-    <div class="section-details" id="section1_content"></div>
-  </div>
-
-  <div class="section" id="section2">
-    <div class="section-summary" id="section2_title">
-      Soft pity — what is it and how does it work?
-      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>
-    </div>
-    <div class="section-details" id="section2_content"></div>
-  </div>
-
-  <div class="section" id="section3">
-    <div class="section-summary" id="section3_title">
-      Simulation modes — what's the difference?
-      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>
-    </div>
-    <div class="section-details" id="section3_content"></div>
-  </div>
-
-  <div class="section" id="section4">
-    <div class="section-summary" id="section4_title">
-      Limits — why do they exist and how to bypass?
-      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>
-    </div>
-    <div class="section-details" id="section4_content"></div>
-  </div>
-
-  <!-- Language selector -->
-  <footer>
-    <div class="language-selector">
-      <div class="lang-wrapper">
-        <select id="langSelector">
-          <option value="en">English</option>
-          <option value="ru">Русский</option>
-          <option value="ja">日本語</option>
-          <option value="ko">한국어</option>
-          <option value="zh">中文</option>
-          <option value="es">Español</option>
-          <option value="pt">Português</option>
-          <option value="fr">Français</option>
-          <option value="id">Bahasa Indonesia</option>
-          <option value="tr">Türkçe</option>
-          <option value="ar">العربية</option>
-        </select>
-        <!-- Минималистичная иконка глобуса -->
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" stroke="#aaa" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10" />
-          <path d="M2 12h20" />
-          <path d="M12 2a15 15 0 0 1 0 20" />
-          <path d="M6.5 6.5a15 15 0 0 1 11 11" />
-          <path d="M17.5 6.5a15 15 0 0 0-11 11" />
-        </svg>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Script -->
-  <script src="languages.js"></script>
-  <script>
-    const langSelector = document.getElementById("langSelector");
-    const titleElement = document.getElementById("title");
-    const sectionTitles = [
-      document.getElementById("section1_title"),
-      document.getElementById("section2_title"),
-      document.getElementById("section3_title"),
-      document.getElementById("section4_title"),
-    ];
-    const sectionContents = [
-      document.getElementById("section1_content"),
-      document.getElementById("section2_content"),
-      document.getElementById("section3_content"),
-      document.getElementById("section4_content"),
-    ];
-
-    function setLanguage(lang) {
-      const langData = translations[lang] || translations.en;
-      titleElement.textContent = langData.title;
-      for (let i = 0; i < 4; i++) {
-        sectionTitles[i].childNodes[0].textContent = langData[`section${i + 1}_title`];
-        sectionContents[i].innerHTML = langData[`section${i + 1}_content`];
-      }
-      document.body.classList.toggle("rtl", lang === "ar");
-      langSelector.value = lang;
-      localStorage.setItem("preferredLang", lang);
-    }
-
-    function detectLanguage() {
-      const savedLang = localStorage.getItem("preferredLang");
-      if (savedLang) return savedLang;
-      const browserLang = navigator.language.slice(0, 2);
-      return Object.keys(translations).includes(browserLang) ? browserLang : "en";
-    }
-
-    function initAccordion() {
-      document.querySelectorAll(".section-summary").forEach((summary) => {
-        const details = summary.nextElementSibling;
-        summary.addEventListener("click", () => {
-          const isOpen = details.classList.contains("open");
-          if (isOpen) {
-            details.style.maxHeight = details.scrollHeight + "px";
-            requestAnimationFrame(() => {
-              details.style.maxHeight = "0";
-              details.classList.remove("open");
-              summary.classList.remove("active");
-            });
-          } else {
-            details.classList.add("open");
-            summary.classList.add("active");
-            details.style.maxHeight = details.scrollHeight + "px";
-          }
-        });
-
-        details.addEventListener("transitionend", () => {
-          if (details.classList.contains("open")) {
-            details.style.maxHeight = "none";
-          }
-        });
-      });
-    }
-
-    function openSectionByHash() {
-      const hash = window.location.hash;
-      if (hash && hash.startsWith("#section")) {
-        const section = document.querySelector(hash);
-        const summary = section?.querySelector(".section-summary");
-        const details = section?.querySelector(".section-details");
-        if (summary && details) {
-          details.classList.add("open");
-          summary.classList.add("active");
-          details.style.maxHeight = details.scrollHeight + "px";
-          setTimeout(() => {
-            section.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 100);
-        }
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      setLanguage(detectLanguage());
-      initAccordion();
-      langSelector.addEventListener("change", (e) => setLanguage(e.target.value));
-      openSectionByHash();
-    });
-
-    window.addEventListener("hashchange", openSectionByHash);
-  </script>
-</body>
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+  <title>Zatex Bot Help</title>  
+  <style>  
+    * {  
+      box-sizing: border-box;  
+    }  
+  
+    body {  
+      background-color: #000;  
+      color: #eee;  
+      font-family: sans-serif;  
+      padding: 20px;  
+      margin: 0;  
+      display: flex;  
+      flex-direction: column;  
+      min-height: 100vh;  
+      scroll-behavior: smooth;  
+    }  
+  
+    .rtl {  
+      direction: rtl;  
+      text-align: right;  
+    }  
+  
+    h1 {  
+      text-align: center;  
+      margin-bottom: 1em;  
+      font-size: 1.8rem;  
+    }  
+  
+    .section {  
+      margin-bottom: 1em;  
+      border-radius: 8px;  
+      overflow: hidden;  
+    }  
+  
+    .section-summary {  
+      cursor: pointer;  
+      background: #222;  
+      padding: 14px 20px;  
+      display: flex;  
+      justify-content: space-between;  
+      align-items: center;  
+      transition: background 0.2s;  
+      font-size: 1rem;  
+    }  
+  
+    .section-summary:hover {  
+      background: #2a2a2a;  
+    }  
+  
+    .section-summary svg {  
+      width: 24px;  
+      height: 24px;  
+      transition: transform 0.3s ease;  
+      fill: #aaa;  
+      flex-shrink: 0;  
+      margin-left: 10px;  
+    }  
+  
+    .section-summary.active svg {  
+      transform: rotate(180deg);  
+    }  
+  
+    .section-details {  
+      background: #111;  
+      overflow: hidden;  
+      max-height: 0;  
+      opacity: 0;  
+      transition: max-height 0.3s ease, opacity 0.2s ease, padding 0.3s ease;  
+      padding: 0 20px;  
+      border-top: 1px solid #333;  
+    }  
+  
+    .section-details.open {  
+      opacity: 1;  
+      padding: 15px 20px;  
+    }  
+  
+    ul {  
+      padding-left: 20px;  
+      margin: 10px 0;  
+    }  
+  
+    li {  
+      margin-bottom: 10px;  
+    }  
+  
+    p {  
+      margin: 12px 0;  
+    }  
+  
+    footer {  
+      margin-top: auto;  
+      text-align: center;  
+      padding: 20px 10px 10px;  
+    }  
+  
+    .language-selector {  
+      display: flex;  
+      justify-content: center;  
+    }  
+  
+    .lang-wrapper {  
+      display: flex;  
+      align-items: center;  
+      background: #222;  
+      border-radius: 6px;  
+      padding: 8px 12px;  
+      position: relative;  
+      max-width: 300px;  
+      width: 100%;  
+      transition: background 0.2s;  
+    }  
+  
+    .lang-wrapper:hover {  
+      background: #2a2a2a;  
+    }  
+  
+    .lang-wrapper:focus-within {  
+      background: #2a2a2a;  
+      outline: none;  
+    }  
+  
+    .lang-wrapper select {  
+      background: transparent;  
+      color: #fff;  
+      border: none;  
+      font-size: 16px;  
+      width: 100%;  
+      appearance: none;  
+      padding-right: 30px;  
+      cursor: pointer;  
+      outline: none;  
+    }  
+  
+    .lang-wrapper svg {  
+      position: absolute;  
+      right: 12px;  
+      pointer-events: none;  
+      fill: #aaa;  
+      width: 20px;  
+      height: 20px;  
+    }  
+  
+    @media (max-width: 600px) {  
+      body {  
+        padding: 15px 10px;  
+      }  
+      h1 {  
+        font-size: 1.5rem;  
+      }  
+      .section-summary {  
+        padding: 10px 14px;  
+        font-size: 0.9rem;  
+      }  
+      .section-summary svg {  
+        width: 20px;  
+        height: 20px;  
+      }  
+      .lang-wrapper select {  
+        font-size: 15px;  
+      }  
+      .lang-wrapper svg {  
+        width: 18px;  
+        height: 18px;  
+      }  
+    }  
+  </style>  
+</head>  
+<body>  
+  <h1 id="title">Zatex Bot Help</h1>  
+  
+  <!-- Sections -->  
+  <div class="section" id="section1">  
+    <div class="section-summary" id="section1_title">  
+      Parameters — what does each one control?  
+      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>  
+    </div>  
+    <div class="section-details" id="section1_content"></div>  
+  </div>  
+  
+  <div class="section" id="section2">  
+    <div class="section-summary" id="section2_title">  
+      Soft pity — what is it and how does it work?  
+      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>  
+    </div>  
+    <div class="section-details" id="section2_content"></div>  
+  </div>  
+  
+  <div class="section" id="section3">  
+    <div class="section-summary" id="section3_title">  
+      Simulation modes — what's the difference?  
+      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>  
+    </div>  
+    <div class="section-details" id="section3_content"></div>  
+  </div>  
+  
+  <div class="section" id="section4">  
+    <div class="section-summary" id="section4_title">  
+      Limits — why do they exist and how to bypass?  
+      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z" /></svg>  
+    </div>  
+    <div class="section-details" id="section4_content"></div>  
+  </div>  
+  
+  <!-- Language selector -->  
+  <footer>  
+    <div class="language-selector">  
+      <div class="lang-wrapper">  
+        <select id="langSelector">  
+          <option value="en">English</option>  
+          <option value="ru">Русский</option>  
+          <option value="ja">日本語</option>  
+          <option value="ko">한국어</option>  
+          <option value="zh">中文</option>  
+          <option value="es">Español</option>  
+          <option value="pt">Português</option>  
+          <option value="fr">Français</option>  
+          <option value="id">Bahasa Indonesia</option>  
+          <option value="tr">Türkçe</option>  
+          <option value="ar">العربية</option>  
+        </select>  
+        <!-- заменяем стрелку на глобус -->  
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" >  
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12a7.93 7.93 0 0 1 1.17-4.18l5.25 5.25v.02l-4.36 4.36A7.93 7.93 0 0 1 4 12zm8 8a7.93 7.93 0 0 1-4.18-1.17l5.25-5.25v-.02l4.36-4.36A7.93 7.93 0 0 1 20 12a8 8 0 0 1-8 8zm0-16a7.93 7.93 0 0 1 4.18 1.17l-5.25 5.25v.02l-4.36 4.36A7.93 7.93 0 0 1 4 12a8 8 0 0 1 8-8z" fill="currentColor"/>  
+        </svg>  
+      </div>  
+    </div>  
+  </footer>  
+  
+  <!-- Script -->  
+  <script src="languages.js"></script>  
+  <script>  
+    const langSelector = document.getElementById("langSelector");  
+    const titleElement = document.getElementById("title");  
+    const sectionTitles = [  
+      document.getElementById("section1_title"),  
+      document.getElementById("section2_title"),  
+      document.getElementById("section3_title"),  
+      document.getElementById("section4_title"),  
+    ];  
+    const sectionContents = [  
+      document.getElementById("section1_content"),  
+      document.getElementById("section2_content"),  
+      document.getElementById("section3_content"),  
+      document.getElementById("section4_content"),  
+    ];  
+  
+    function setLanguage(lang) {  
+      const langData = translations[lang] || translations.en;  
+      titleElement.textContent = langData.title;  
+      for (let i = 0; i < 4; i++) {  
+        sectionTitles[i].childNodes[0].textContent = langData[`section${i + 1}_title`];  
+        sectionContents[i].innerHTML = langData[`section${i + 1}_content`];  
+      }  
+      document.body.classList.toggle("rtl", lang === "ar");  
+      langSelector.value = lang;  
+      localStorage.setItem("preferredLang", lang);  
+    }  
+  
+    function detectLanguage() {  
+      const savedLang = localStorage.getItem("preferredLang");  
+      if (savedLang) return savedLang;  
+      const browserLang = navigator.language.slice(0, 2);  
+      return Object.keys(translations).includes(browserLang) ? browserLang : "en";  
+    }  
+  
+    function initAccordion() {  
+      document.querySelectorAll(".section-summary").forEach((summary) => {  
+        const details = summary.nextElementSibling;  
+        summary.addEventListener("click", () => {  
+          const isOpen = details.classList.contains("open");  
+          if (isOpen) {  
+            details.style.maxHeight = details.scrollHeight + "px";  
+            requestAnimationFrame(() => {  
+              details.style.maxHeight = "0";  
+              details.classList.remove("open");  
+              summary.classList.remove("active");  
+            });  
+          } else {  
+            details.classList.add("open");  
+            summary.classList.add("active");  
+            details.style.maxHeight = details.scrollHeight + "px";  
+          }  
+        });  
+  
+        details.addEventListener("transitionend", () => {  
+          if (details.classList.contains("open")) {  
+            details.style.maxHeight = "none";  
+          }  
+        });  
+      });  
+    }  
+  
+    function openSectionByHash() {  
+      const hash = window.location.hash;  
+      if (hash && hash.startsWith("#section")) {  
+        const section = document.querySelector(hash);  
+        const summary = section?.querySelector(".section-summary");  
+        const details = section?.querySelector(".section-details");  
+        if (summary && details) {  
+          details.classList.add("open");  
+          summary.classList.add("active");  
+          details.style.maxHeight = details.scrollHeight + "px";  
+          setTimeout(() => {  
+            section.scrollIntoView({ behavior: "smooth", block: "start" });  
+          }, 100);  
+        }  
+      }  
+    }  
+  
+    document.addEventListener("DOMContentLoaded", () => {  
+      setLanguage(detectLanguage());  
+      initAccordion();  
+      langSelector.addEventListener("change", (e) => setLanguage(e.target.value));  
+      openSectionByHash();  
+    });  
+  
+    window.addEventListener("hashchange", openSectionByHash);  
+  </script>  
+</body>  
 </html>
