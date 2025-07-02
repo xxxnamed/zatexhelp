@@ -85,7 +85,8 @@
       padding: 0;
       margin: 10px 0;
       display: flex;
-      flex-direction: column-reverse;
+      /* Порядок вывода языков сверху вниз */
+      flex-direction: column;
     }
     .language-item {
       padding: 10px;
@@ -101,14 +102,10 @@
     }
     #section5 {
       position: relative;
-      margin-top: auto; /* Выталкивает этот раздел вниз flex-контейнера */
-    }
-    #section5 .section-summary,
-    #section5 .section-details {
-      position: relative;
-      z-index: 10;
+      margin-top: auto; /* Выталкивает этот раздел вниз */
     }
     #section5 .section-summary {
+      position: relative;
       z-index: 11;
     }
     #section5 .section-details {
@@ -116,6 +113,7 @@
       bottom: 100%;
       left: 0;
       width: 100%;
+      z-index: 10;
     }
     #section5 .section-summary svg {
       transform: rotate(180deg);
@@ -131,8 +129,9 @@
       bottom: 0;
       right: 0;
       background: rgba(0, 0, 0, 0.5);
-      z-index: 5;
-      pointer-events: none; /* Позволяет кликам проходить через слой */
+      z-index: 9;
+      /* Убираем pointer-events: none, чтобы оверлей блокировал клики по другим элементам */
+      pointer-events: auto;
     }
     @media (max-width: 600px) {
       body {
