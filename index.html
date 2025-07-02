@@ -85,7 +85,7 @@
       padding: 0;
       margin: 10px 0;
       display: flex;
-      /* Порядок вывода языков сверху вниз */
+      /* Order languages from top to bottom */
       flex-direction: column;
     }
     .language-item {
@@ -101,8 +101,9 @@
       background: #444;
     }
     #section5 {
+      overflow: visible;
       position: relative;
-      margin-top: auto; /* Выталкивает этот раздел вниз */
+      margin-top: auto; /* Push this section to bottom */
     }
     #section5 .section-summary {
       position: relative;
@@ -130,7 +131,7 @@
       right: 0;
       background: rgba(0, 0, 0, 0.5);
       z-index: 9;
-      /* Убираем pointer-events: none, чтобы оверлей блокировал клики по другим элементам */
+      /* Allow overlay to block clicks */
       pointer-events: auto;
     }
     @media (max-width: 600px) {
@@ -225,14 +226,30 @@
       document.getElementById("section3_content"),
       document.getElementById("section4_content"),
     ];
+    const languageLabels = {
+      en: "Language",
+      ru: "Языки",
+      ja: "言語",
+      ko: "언어",
+      zh: "语言",
+      es: "Idioma",
+      pt: "Idioma",
+      fr: "Langue",
+      id: "Bahasa",
+      tr: "Dil",
+      ar: "اللغة"
+    };
 
     function setLanguage(lang) {
       const langData = translations[lang] || translations.en;
       titleElement.textContent = langData.title;
       for (let i = 0; i < 4; i++) {
-        sectionTitles[i].childNodes[0].textContent = langData[`section${i + 1}_title`];
-        sectionContents[i].innerHTML = langData[`section${i + 1}_content`];
+        sectionTitles[i].childNodes[0].textContent = langData[\`section${i + 1}_title\`];
+        sectionContents[i].innerHTML = langData[\`section${i + 1}_content\`];
       }
+      // Set the Language section title label
+      const section5Title = document.getElementById("section5_title");
+      section5Title.childNodes[0].textContent = languageLabels[lang] || languageLabels.en;
       document.body.classList.toggle("rtl", lang === "ar");
       document.querySelectorAll(".language-item").forEach(item => {
         if (item.dataset.lang === lang) {
@@ -268,7 +285,7 @@
             summary.classList.add("active");
             details.style.maxHeight = details.scrollHeight + "px";
           }
-          // Показ/скрытие затемнения для раздела языка
+          // Toggle overlay for Language section
           if (summary.id === "section5_title") {
             const overlay = document.getElementById("overlay");
             if (isOpen) {
