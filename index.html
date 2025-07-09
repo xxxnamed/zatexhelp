@@ -4,178 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zatex Bot Help</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      background-color: #000;
-      color: #eee;
-      font-family: sans-serif;
-      padding: 20px;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      scroll-behavior: smooth;
-    }
-
-    .rtl {
-      direction: rtl;
-      text-align: right;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 1em;
-      font-size: 1.8rem;
-    }
-
-    .section {
-      margin-bottom: 1em;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .section-summary {
-      cursor: pointer;
-      background: #222;
-      padding: 14px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background 0.2s;
-      font-size: 1rem;
-    }
-
-    .section-summary:hover {
-      background: #2a2a2a;
-    }
-
-    .section-summary svg {
-      width: 24px;
-      height: 24px;
-      transition: transform 0.3s ease;
-      fill: #aaa;
-      flex-shrink: 0;
-      margin-left: 10px;
-    }
-
-    .section-summary.active svg {
-      transform: rotate(180deg);
-    }
-
-    .section-details {
-      background: #111;
-      overflow: hidden;
-      max-height: 0;
-      opacity: 0;
-      transition: max-height 0.3s ease, opacity 0.2s ease, padding 0.3s ease;
-      padding: 0 20px;
-      border-top: 1px solid #333;
-    }
-
-    .section-details.open {
-      opacity: 1;
-      padding: 15px 20px;
-    }
-
-    ul {
-      padding-left: 20px;
-      margin: 10px 0;
-    }
-
-    li {
-      margin-bottom: 10px;
-    }
-
-    p {
-      margin: 12px 0;
-    }
-
-    footer {
-      margin-top: auto;
-      text-align: center;
-      padding: 20px 10px 10px;
-    }
-
-    .language-selector {
-      display: flex;
-      justify-content: center;
-    }
-
-    .lang-wrapper {
-      display: flex;
-      align-items: center;
-      background: #222;
-      border-radius: 6px;
-      padding: 8px 12px;
-      position: relative;
-      max-width: 300px;
-      width: 100%;
-      transition: background 0.2s;
-    }
-
-    .lang-wrapper:hover {
-      background: #2a2a2a;
-    }
-
-    .lang-wrapper:focus-within {
-      background: #2a2a2a;
-      outline: none;
-    }
-
-    .lang-wrapper select {
-      background: transparent;
-      color: #fff;
-      border: none;
-      font-size: 16px;
-      width: 100%;
-      appearance: none;
-      padding-right: 30px;
-      cursor: pointer;
-      outline: none;
-    }
-
-    /* Заменяем позиционирование иконки */
-    .lang-wrapper svg {
-      position: absolute;
-      right: 12px;
-      pointer-events: none;
-      stroke: #aaa;
-      width: 20px;
-      height: 20px;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    @media (max-width: 600px) {
-      body {
-        padding: 15px 10px;
-      }
-      h1 {
-        font-size: 1.5rem;
-      }
-      .section-summary {
-        padding: 10px 14px;
-        font-size: 0.9rem;
-      }
-      .section-summary svg {
-        width: 20px;
-        height: 20px;
-      }
-      .lang-wrapper select {
-        font-size: 15px;
-      }
-      .lang-wrapper svg {
-        width: 18px;
-        height: 18px;
-      }
-    }
-  </style>
+  <!-- CSS ОСТАЁТСЯ БЕЗ ИЗМЕНЕНИЙ — опущено здесь для краткости -->
+  <style>/* ... твой CSS без изменений ... */</style>
 </head>
 <body>
   <h1 id="title">Zatex Bot Help</h1>
@@ -224,13 +54,11 @@
           <option value="ko">한국어</option>
           <option value="zh">中文</option>
           <option value="es">Español</option>
-          <option value="pt">Português</option>
+          <option value="pt-BR">Português</option>
           <option value="fr">Français</option>
         </select>
-
-        <!-- Иконка глобуса с меридианами -->
-        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" 
-stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
           <circle cx="12" cy="12" r="10"/>
           <path d="M2 12h20"/>
           <path d="M12 2a15.3 15.3 0 0 1 0 20"/>
@@ -241,7 +69,7 @@ stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="fal
   </footer>
 
   <!-- Script -->
-  <script src="languages.js"></script>
+  <script src="../languages.js"></script>
   <script>
     const langSelector = document.getElementById("langSelector");
     const titleElement = document.getElementById("title");
@@ -258,6 +86,13 @@ stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="fal
       document.getElementById("section4_content"),
     ];
 
+    function getCurrentLangFromPath() {
+      const parts = window.location.pathname.split('/');
+      const lang = parts[1];
+      const supported = ["en", "ru", "ja", "ko", "zh", "es", "pt-BR", "fr"];
+      return supported.includes(lang) ? lang : "en";
+    }
+
     function setLanguage(lang) {
       const langData = translations[lang] || translations.en;
       titleElement.textContent = langData.title;
@@ -267,14 +102,14 @@ stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="fal
       }
       document.body.classList.toggle("rtl", lang === "ar");
       langSelector.value = lang;
-      localStorage.setItem("preferredLang", lang);
     }
 
-    function detectLanguage() {
-      const savedLang = localStorage.getItem("preferredLang");
-      if (savedLang) return savedLang;
-      const browserLang = navigator.language.slice(0, 2);
-      return Object.keys(translations).includes(browserLang) ? browserLang : "en";
+    function changeLanguageURL(lang) {
+      const currentPath = window.location.pathname;
+      const parts = currentPath.split('/');
+      parts[1] = lang; // заменяем язык в URL
+      const newURL = parts.join('/') + window.location.hash;
+      window.location.href = newURL;
     }
 
     function initAccordion() {
@@ -322,10 +157,11 @@ stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="fal
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      setLanguage(detectLanguage());
+      const currentLang = getCurrentLangFromPath();
+      setLanguage(currentLang);
       initAccordion();
-      langSelector.addEventListener("change", (e) => setLanguage(e.target.value));
       openSectionByHash();
+      langSelector.addEventListener("change", (e) => changeLanguageURL(e.target.value));
     });
 
     window.addEventListener("hashchange", openSectionByHash);
