@@ -69,16 +69,18 @@
       max-height: 0;
       opacity: 0;
       overflow: hidden;
-      transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.5s ease;
+      transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.5s ease, min-height 0.5s;
       padding: 0 20px;
       border-top: 1px solid #333;
       width: 100%;
       border-radius: 0 0 8px 8px;
+      min-height: 0;
     }
 
     .section-details.open {
       opacity: 1;
-      padding: 14px 20px 14px 20px; /* одинаковый отступ сверху и снизу */
+      padding: 14px 20px 14px 20px;
+      min-height: 28px; /* 14px сверху + 14px снизу */
     }
 
     ul { padding-left: 20px; margin: 10px 0; }
@@ -188,7 +190,7 @@
       Parameters — what does each one control?
       <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
     </div>
-    <div class="section-details" id="section1_content"></div>
+    <div class="section-details" id="section1_content">Тестовый текст для проверки отступов.</div>
   </div>
   <div class="section" id="section2">
     <div class="section-summary" id="section2_title">
@@ -240,6 +242,9 @@
   </footer>
   <script src="languages.js"></script>
   <script>
+    // Для теста можно добавить translations = {en: {...}} ниже, если languages.js отсутствует
+    // const translations = {en: {title: "Zatex Bot Help", section1_title: "...", section1_content: "...", ...}};
+
     const langSelector = document.getElementById("langSelector");
     const titleElement = document.getElementById("title");
     const sectionTitles = [
