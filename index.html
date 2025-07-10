@@ -8,14 +8,26 @@
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; height: 100%; }
     body {
-      background-color: #000;
+      min-height: 100vh;
+      background: linear-gradient(150deg,
+        #000 0%,
+        #111 20%,
+        #1a1a1a 40%,
+        #222 60%,
+        #333 80%,
+        #444 100%
+      );
+      /* Для особо плавного перехода можно добавить больше промежуточных оттенков */
       color: #eee;
       font-family: sans-serif;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
       scroll-behavior: smooth;
       padding: 20px;
+      transition: background 0.5s;
+      /* Для плавности на retina и больших экранах */
+      background-repeat: no-repeat;
+      background-attachment: fixed;
     }
     .rtl { direction: rtl; text-align: right; }
     h1 {
@@ -82,7 +94,6 @@
       padding: 14px 20px 0 20px; /* только верхний padding, низ убираем */
       display: block;
     }
-    /* Псевдоэлемент для создания отступа снизу */
     .section-details.open::after {
       content: "";
       display: block;
@@ -259,9 +270,6 @@
   </footer>
   <script src="languages.js"></script>
   <script>
-    // Для теста можно добавить translations = {en: {...}} ниже, если languages.js отсутствует
-    // const translations = {en: {title: "Zatex Bot Help", section1_title: "...", section1_content: "...", ...}};
-
     const langSelector = document.getElementById("langSelector");
     const titleElement = document.getElementById("title");
     const sectionTitles = [
