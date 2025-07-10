@@ -11,11 +11,11 @@
       background-color: #000;
       color: #eee;
       font-family: sans-serif;
-      padding: 20px 20px 0; /* Убран нижний паддинг */
       display: flex;
       flex-direction: column;
       min-height: 100vh;
       scroll-behavior: smooth;
+      padding: 20px 20px 0; /* убран паддинг снизу */
     }
 
     .rtl { direction: rtl; text-align: right; }
@@ -39,15 +39,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: background 0.2s;
+      transition: background 0.3s ease;
       font-size: 1rem;
     }
-
     .section-summary:hover { background: #2a2a2a; }
     .section-summary svg {
       width: 24px;
       height: 24px;
-      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-in-out; /* Улучшенная анимация */
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-in-out;
       fill: #aaa;
       margin-left: 10px;
     }
@@ -58,7 +57,7 @@
       overflow: hidden;
       max-height: 0;
       opacity: 0;
-      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-in-out, padding 0.5s ease-in-out; /* Улучшенная анимация */
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-in-out, padding 0.5s ease-in-out;
       padding: 0 20px;
       border-top: 1px solid #333;
     }
@@ -72,13 +71,13 @@
     p { margin: 12px 0; }
 
     footer {
+      width: 100vw;
+      background-color: #222;
+      border-radius: 20px 20px 0 0;
       margin-top: auto;
-      text-align: center;
-      padding: 20px 10px 30px; /* Увеличен нижний паддинг */
-      background-color: #222; /* Новый фон футера */
-      border-radius: 20px 20px 0 0; /* Скругление только сверху */
-      width: 100vw; /* На всю ширину экрана */
+      padding: 20px 10px 30px; /* чуть больше снизу */
       box-sizing: border-box;
+      text-align: center;
     }
 
     .language-selector {
@@ -92,7 +91,6 @@
       display: flex;
       align-items: center;
       gap: 20px;
-      margin-left: -20px;
     }
     .footer-links a {
       display: flex;
@@ -102,7 +100,7 @@
       height: 32px;
       color: #aaa;
       text-decoration: none;
-      transition: color 0.2s;
+      transition: color 0.2s ease;
     }
     .footer-links a:hover { color: #fff; }
     .footer-links svg { width: 24px; height: 24px; fill: currentColor; }
@@ -115,12 +113,11 @@
       padding: 8px 12px;
       max-width: 300px;
       width: 100%;
-      transition: background 0.2s;
-      margin-left: 20px;
+      transition: background 0.2s ease;
       position: relative;
     }
-    .lang-wrapper:hover { background: #2a2a2a; }
-    .lang-wrapper:focus-within { background: #2a2a2a; outline: none; }
+    .lang-wrapper:hover,
+    .lang-wrapper:focus-within { background: #2a2a2a; }
     .lang-wrapper select {
       background: transparent;
       color: #fff;
@@ -194,9 +191,7 @@
     <div class="language-selector">
       <div class="footer-links">
         <a href="https://t.me/zatexxx_bot" target="_blank" aria-label="Telegram">
-          <svg width="24" height="24" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
-            <path d="M198.5 77.6l-21.6 101.9c-1.6 7.3-5.8 9.1-11.7 5.7l-32.4-23.9-15.6 15c-1.7 1.7-3.2 3.2-6.5 3.2l2.3-32.5 59.2-53.5c2.6-2.3-0.6-3.6-4-1.3l-73.2 46.1-31.5-9.8c-6.8-2.1-6.9-6.8 1.4-9.8l123.9-47.8c5.6-2.1 10.5 1.3 8.7 9.7z" fill="#fff"/>
-          </svg>
+          <svg width="24" height="24" viewBox="0 0 240 240"><path d="M198.5 77.6l-21.6 101.9c-1.6 7.3-5.8 9.1-11.7 5.7l-32.4-23.9-15.6 15c-1.7 1.7-3.2 3.2-6.5 3.2l2.3-32.5 59.2-53.5c2.6-2.3-0.6-3.6-4-1.3l-73.2 46.1-31.5-9.8c-6.8-2.1-6.9-6.8 1.4-9.8l123.9-47.8c5.6-2.1 10.5 1.3 8.7 9.7z" fill="#fff"/></svg>
         </a>
         <a href="https://github.com/xxxnamed/Zatex" target="_blank" aria-label="GitHub">
           <svg viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd"
@@ -230,33 +225,7 @@
     </div>
   </footer>
 
-  <script>
-    // Для демонстрации добавим временный объект переводов
-    const translations = {
-      en: {
-        title: "Zatex Bot Help",
-        section1_title: "Parameters — what does each one control?",
-        section2_title: "Soft pity — what is it and how does it work?",
-        section3_title: "Simulation modes — what's the difference?",
-        section4_title: "Limits — why do they exist and how to bypass?",
-        section1_content: "<p>Detailed explanation about parameters...</p>",
-        section2_content: "<p>Information about soft pity system...</p>",
-        section3_content: "<p>Comparison of simulation modes...</p>",
-        section4_content: "<p>Guide to limits and bypassing...</p>"
-      },
-      ru: {
-        title: "Помощь по боту Zatex",
-        section1_title: "Параметры — что контролирует каждый?",
-        section2_title: "Софт-пити — что это и как работает?",
-        section3_title: "Режимы симуляции — в чём разница?",
-        section4_title: "Лимиты — зачем они и как обойти?",
-        section1_content: "<p>Подробное объяснение параметров...</p>",
-        section2_content: "<p>Информация о системе софт-пити...</p>",
-        section3_content: "<p>Сравнение режимов симуляции...</p>",
-        section4_content: "<p>Руководство по лимитам...</p>"
-      }
-    };
-  </script>
+  <script src="languages.js"></script>
   <script>
     const langSelector = document.getElementById("langSelector");
     const titleElement = document.getElementById("title");
@@ -273,23 +242,22 @@
       document.getElementById("section4_content"),
     ];
 
-    // Безопасное обновление текста заголовка
+    // Utility to set only the text node (preserving SVG icons)
     function setSectionTitle(element, text) {
-      // Ищем первый текстовый узел
       for (let node of element.childNodes) {
         if (node.nodeType === Node.TEXT_NODE) {
           node.textContent = text;
           return;
         }
       }
-      // Если текстового узла нет - создаем
+      // If no text node found, insert before first child
       element.insertBefore(document.createTextNode(text), element.firstChild);
     }
 
     function setLanguage(lang) {
       const langData = translations[lang] || translations.en;
       titleElement.textContent = langData.title;
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < sectionTitles.length; i++) {
         setSectionTitle(sectionTitles[i], langData[`section${i + 1}_title`]);
         sectionContents[i].innerHTML = langData[`section${i + 1}_content`];
       }
@@ -311,9 +279,9 @@
       document.querySelectorAll(".section-summary").forEach(summary => {
         const details = summary.nextElementSibling;
         summary.addEventListener("click", () => {
-          details.classList.toggle("open");
-          summary.classList.toggle("active");
-          details.style.maxHeight = details.classList.contains("open")
+          const isOpen = details.classList.toggle("open");
+          summary.classList.toggle("active", isOpen);
+          details.style.maxHeight = isOpen
             ? details.scrollHeight + "px"
             : "0";
         });
