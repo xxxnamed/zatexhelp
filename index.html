@@ -67,7 +67,7 @@
       max-height: 0;
       opacity: 0;
       overflow: hidden;
-      transition: max-height 0.5s, opacity 0.4s, padding 0.5s;
+      transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.5s ease;
       padding: 0 20px;
       border-top: 1px solid #333;
       width: 100%;
@@ -76,7 +76,7 @@
     .section-details.open {
       opacity: 1;
       padding: 15px 20px;
-      overflow: visible;
+      /* Не ставим max-height тут, управляем через JS */
     }
 
     ul { padding-left: 20px; margin: 10px 0; }
@@ -280,6 +280,15 @@
       document.body.classList.toggle("rtl", lang === "ar");
       langSelector.value = lang;
       localStorage.setItem("preferredLang", lang);
+      // Обновляем max-height для открытых секций после смены содержимого:
+      updateOpenSectionsMaxHeight();
+    }
+
+    function updateOpenSectionsMaxHeight() {
+      document.querySelectorAll(".section-details.open").forEach(details => {
+        // небольшой запас для высоты (5px)
+        details.style.maxHeight = (details.scrollHeight + 5) + "px";
+      });
     }
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -302,7 +311,8 @@
           section.classList.toggle("open", isOpen);
 
           if (isOpen) {
-            details.style.maxHeight = details.scrollHeight + "px";
+            // Обновляем max-height с запасом
+            details.style.maxHeight = (details.scrollHeight + 5) + "px";
           } else {
             details.style.maxHeight = "0";
           }
