@@ -6,28 +6,42 @@
   <title>Zatex Bot Help</title>
   <style>
     * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; height: 100%; }
+    html, body { height: 100%; margin: 0; padding: 0; }
+    html {
+      height: 100%;
+    }
     body {
       min-height: 100vh;
+      /* Очень плавный градиент с множеством промежуточных оттенков */
       background: linear-gradient(150deg,
         #000 0%,
-        #111 20%,
-        #1a1a1a 40%,
-        #222 60%,
-        #333 80%,
+        #0a0a0a 7%,
+        #111 14%,
+        #161616 21%,
+        #1a1a1a 28%,
+        #202020 35%,
+        #222 42%,
+        #262626 49%,
+        #292929 56%,
+        #2d2d2d 63%,
+        #313131 70%,
+        #363636 77%,
+        #3a3a3a 84%,
+        #404040 91%,
         #444 100%
       );
-      /* Для особо плавного перехода можно добавить больше промежуточных оттенков */
       color: #eee;
       font-family: sans-serif;
       display: flex;
       flex-direction: column;
+      min-height: 100vh;
       scroll-behavior: smooth;
       padding: 20px;
       transition: background 0.5s;
-      /* Для плавности на retina и больших экранах */
       background-repeat: no-repeat;
       background-attachment: fixed;
+      position: relative;
+      /* Чтобы футер был всегда внизу */
     }
     .rtl { direction: rtl; text-align: right; }
     h1 {
@@ -105,7 +119,21 @@
     li { margin-bottom: 10px; }
     p { margin: 12px 0; }
 
+    /* Контейнер для футера, чтобы фон под ним был всегда черным */
+    .footer-bg {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 200px;
+      background: #111;
+      z-index: 0;
+      pointer-events: none;
+    }
+
     footer {
+      position: relative;
+      z-index: 1;
       background-color: #111;
       border-radius: 20px 20px 0 0;
       padding: 20px 10px 30px;
@@ -115,6 +143,7 @@
       margin-right: -20px;
       width: calc(100% + 40px);
       padding-bottom: 50px;
+      box-sizing: border-box;
     }
 
     .language-selector {
@@ -204,6 +233,9 @@
       .section-details.open::after {
         height: 14px;
       }
+      .footer-bg {
+        height: 120px;
+      }
     }
   </style>
 </head>
@@ -241,6 +273,8 @@
       <p>Due to Telegram and resource limits, the bot enforces caps: max 1000 pulls per simulation and 100,000 simulations. This prevents lag and overload. For larger volumes, consider the console version (in development).</p>
     </div>
   </div>
+  <!-- Фиксированный черный фон для футера -->
+  <div class="footer-bg"></div>
   <footer>
     <div class="language-selector">
       <div class="footer-links">
