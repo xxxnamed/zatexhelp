@@ -69,18 +69,18 @@
       max-height: 0;
       opacity: 0;
       overflow: hidden;
-      transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.5s ease, min-height 0.5s;
+      transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.5s ease;
       padding: 0 20px;
       border-top: 1px solid #333;
       width: 100%;
       border-radius: 0 0 8px 8px;
-      min-height: 0;
     }
 
     .section-details.open {
       opacity: 1;
       padding: 14px 20px 14px 20px;
-      min-height: 28px; /* 14px сверху + 14px снизу */
+      display: flex;
+      flex-direction: column;
     }
 
     ul { padding-left: 20px; margin: 10px 0; }
@@ -190,7 +190,9 @@
       Parameters — what does each one control?
       <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
     </div>
-    <div class="section-details" id="section1_content">Тестовый текст для проверки отступов.</div>
+    <div class="section-details" id="section1_content">
+      <p>Тестовый текст для проверки отступов.</p>
+    </div>
   </div>
   <div class="section" id="section2">
     <div class="section-summary" id="section2_title">
@@ -211,7 +213,9 @@
       Limits — why do they exist and how to bypass?
       <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
     </div>
-    <div class="section-details" id="section4_content"></div>
+    <div class="section-details" id="section4_content">
+      <p>Due to Telegram and resource limits, the bot enforces caps: max 1000 pulls per simulation and 100,000 simulations. This prevents lag and overload. For larger volumes, consider the console version (in development).</p>
+    </div>
   </div>
   <footer>
     <div class="language-selector">
