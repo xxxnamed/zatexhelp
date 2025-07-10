@@ -18,7 +18,6 @@
       padding: 20px;
     }
     .rtl { direction: rtl; text-align: right; }
-
     h1 {
       text-align: center;
       margin: 20px 0;
@@ -79,8 +78,7 @@
 
     .section-details.open {
       opacity: 1;
-      /* одинаковые отступы сверху и снизу */
-      padding: 14px 20px 14px;
+      padding: 14px 20px 14px 20px; /* одинаковый отступ сверху и снизу */
     }
 
     ul { padding-left: 20px; margin: 10px 0; }
@@ -96,7 +94,7 @@
       margin-left: -20px;
       margin-right: -20px;
       width: calc(100% + 40px);
-      padding-bottom: 50px; /* дополнительный отступ внизу */
+      padding-bottom: 50px;
     }
 
     .language-selector {
@@ -185,7 +183,6 @@
 </head>
 <body>
   <h1 id="title">Zatex Bot Help</h1>
-
   <div class="section" id="section1">
     <div class="section-summary" id="section1_title">
       Parameters — what does each one control?
@@ -193,7 +190,6 @@
     </div>
     <div class="section-details" id="section1_content"></div>
   </div>
-
   <div class="section" id="section2">
     <div class="section-summary" id="section2_title">
       Soft pity — what is it and how does it work?
@@ -201,7 +197,6 @@
     </div>
     <div class="section-details" id="section2_content"></div>
   </div>
-
   <div class="section" id="section3">
     <div class="section-summary" id="section3_title">
       Simulation modes — what's the difference?
@@ -209,7 +204,6 @@
     </div>
     <div class="section-details" id="section3_content"></div>
   </div>
-
   <div class="section" id="section4">
     <div class="section-summary" id="section4_title">
       Limits — why do they exist and how to bypass?
@@ -217,7 +211,6 @@
     </div>
     <div class="section-details" id="section4_content"></div>
   </div>
-
   <footer>
     <div class="language-selector">
       <div class="footer-links">
@@ -245,7 +238,6 @@
       </div>
     </div>
   </footer>
-
   <script src="languages.js"></script>
   <script>
     const langSelector = document.getElementById("langSelector");
@@ -288,7 +280,7 @@
 
     function updateOpenSectionsMaxHeight() {
       document.querySelectorAll(".section-details.open").forEach(details => {
-        details.style.maxHeight = details.scrollHeight + "px";
+        details.style.maxHeight = (details.scrollHeight + 5) + "px";
       });
     }
 
@@ -309,7 +301,7 @@
           summary.classList.toggle("active", isOpen);
           summary.closest(".section").classList.toggle("open", isOpen);
           details.style.maxHeight = isOpen
-            ? details.scrollHeight + "px"
+            ? (details.scrollHeight + 5) + "px"
             : "0";
         });
       });
