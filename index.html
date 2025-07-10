@@ -28,7 +28,6 @@
 
     .section {
       margin: 0 20px 20px;
-      border-radius: 8px;
     }
 
     .section-summary {
@@ -40,6 +39,7 @@
       align-items: center;
       transition: background 0.3s ease;
       font-size: 1rem;
+      border-radius: 8px 8px 0 0;       /* восстановили скругление сверху */
     }
     .section-summary:hover { background: #2a2a2a; }
     .section-summary svg {
@@ -59,6 +59,8 @@
       transition: max-height 0.5s, opacity 0.4s, padding 0.5s;
       padding: 0 20px;
       border-top: 1px solid #333;
+      border-radius: 0 0 8px 8px;       /* скругление снизу */
+      width: 100%;                      /* чтобы текст не обрезался */
     }
     .section-details.open {
       opacity: 1;
@@ -73,9 +75,13 @@
       background-color: #111;
       border-radius: 20px 20px 0 0;
       padding: 20px 10px 30px;
-      box-sizing: border-box;
       text-align: center;
       margin-top: auto;
+
+      /* расширить по горизонтали за счёт отрицательных отступов */
+      margin-left: -20px;
+      margin-right: -20px;
+      width: calc(100% + 40px);
     }
 
     .language-selector {
@@ -148,6 +154,11 @@
       .section-summary svg { width: 20px; height: 20px; }
       .lang-wrapper select { font-size: 15px; }
       .lang-wrapper svg { width: 18px; height: 18px; }
+      footer {
+        margin-left: -10px;
+        margin-right: -10px;
+        width: calc(100% + 20px);
+      }
     }
   </style>
 </head>
