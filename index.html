@@ -28,6 +28,13 @@
 
     .section {
       margin: 0 20px 20px;
+      overflow: hidden;
+      border-radius: 8px;
+      transition: border-radius 0.3s ease;
+    }
+
+    .section.open {
+      border-radius: 8px;
     }
 
     .section-summary {
@@ -39,9 +46,10 @@
       align-items: center;
       transition: background 0.3s ease;
       font-size: 1rem;
-      border-radius: 8px 8px 0 0;       /* восстановили скругление сверху */
     }
+
     .section-summary:hover { background: #2a2a2a; }
+
     .section-summary svg {
       width: 24px;
       height: 24px;
@@ -49,7 +57,10 @@
       fill: #aaa;
       margin-left: 10px;
     }
-    .section-summary.active svg { transform: rotate(180deg); }
+
+    .section-summary.active svg {
+      transform: rotate(180deg);
+    }
 
     .section-details {
       background: #111;
@@ -59,12 +70,13 @@
       transition: max-height 0.5s, opacity 0.4s, padding 0.5s;
       padding: 0 20px;
       border-top: 1px solid #333;
-      border-radius: 0 0 8px 8px;       /* скругление снизу */
-      width: 100%;                      /* чтобы текст не обрезался */
+      width: 100%;
     }
+
     .section-details.open {
       opacity: 1;
       padding: 15px 20px;
+      overflow: visible;
     }
 
     ul { padding-left: 20px; margin: 10px 0; }
@@ -77,8 +89,6 @@
       padding: 20px 10px 30px;
       text-align: center;
       margin-top: auto;
-
-      /* расширить по горизонтали за счёт отрицательных отступов */
       margin-left: -20px;
       margin-right: -20px;
       width: calc(100% + 40px);
@@ -96,6 +106,7 @@
       align-items: center;
       gap: 20px;
     }
+
     .footer-links a {
       width: 32px;
       height: 32px;
@@ -106,6 +117,7 @@
       justify-content: center;
       text-decoration: none;
     }
+
     .footer-links a:hover { color: #fff; }
     .footer-links svg { width: 24px; height: 24px; fill: currentColor; }
 
@@ -120,8 +132,10 @@
       position: relative;
       transition: background 0.2s ease;
     }
+
     .lang-wrapper:hover,
     .lang-wrapper:focus-within { background: #2a2a2a; }
+
     .lang-wrapper select {
       background: transparent;
       color: #fff;
@@ -133,6 +147,7 @@
       cursor: pointer;
       outline: none;
     }
+
     .lang-wrapper svg {
       position: absolute;
       right: 12px;
@@ -172,6 +187,7 @@
     </div>
     <div class="section-details" id="section1_content"></div>
   </div>
+
   <div class="section" id="section2">
     <div class="section-summary" id="section2_title">
       Soft pity — what is it and how does it work?
@@ -179,6 +195,7 @@
     </div>
     <div class="section-details" id="section2_content"></div>
   </div>
+
   <div class="section" id="section3">
     <div class="section-summary" id="section3_title">
       Simulation modes — what's the difference?
@@ -186,6 +203,7 @@
     </div>
     <div class="section-details" id="section3_content"></div>
   </div>
+
   <div class="section" id="section4">
     <div class="section-summary" id="section4_title">
       Limits — why do they exist and how to bypass?
@@ -201,13 +219,7 @@
           <svg width="24" height="24" viewBox="0 0 240 240"><path d="M198.5 77.6l-21.6 101.9c-1.6 7.3-5.8 9.1-11.7 5.7l-32.4-23.9-15.6 15c-1.7 1.7-3.2 3.2-6.5 3.2l2.3-32.5 59.2-53.5c2.6-2.3-0.6-3.6-4-1.3l-73.2 46.1-31.5-9.8c-6.8-2.1-6.9-6.8 1.4-9.8l123.9-47.8c5.6-2.1 10.5 1.3 8.7 9.7z" fill="#fff"/></svg>
         </a>
         <a href="https://github.com/xxxnamed/Zatex" target="_blank" aria-label="GitHub">
-          <svg viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd"
-            d="M12 2C6.48 2 2 6.58 2 12.26c0 4.5 2.87 8.31 6.84 9.66.5.1.68-.22.68-.48
-            0-.24-.01-.87-.01-1.7-2.78.61-3.37-1.37-3.37-1.37-.45-1.17-1.1-1.49-1.1-1.49-.9-.63.07-.62.07-.62
-            1 .08 1.53 1.06 1.53 1.06.89 1.56 2.34 1.1 2.91.84.09-.66.35-1.1.63-1.35-2.22-.26-4.56-1.14-4.56-5.06
-            0-1.12.39-2.03 1.02-2.74-.1-.26-.44-1.3.1-2.7 0 0 .83-.27 2.75 1.02a9.45 9.45 0 0 1 5 0c1.91-1.29 2.74-1.02
-            2.74-1.02.55 1.4.21 2.44.11 2.7.63.71 1.02 1.62 1.02 2.74 0 3.93-2.34 4.8-4.57 5.05.36.32.69.94.69 1.9
-            0 1.37-.01 2.48-.01 2.82 0 .27.18.59.69.48A10.29 10.29 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.5 2.87 8.31 6.84 9.66.5.1.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.61-3.37-1.37-3.37-1.37-.45-1.17-1.1-1.49-1.1-1.49-.9-.63.07-.62.07-.62 1 .08 1.53 1.06 1.53 1.06.89 1.56 2.34 1.1 2.91.84.09-.66.35-1.1.63-1.35-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.02-2.74-.1-.26-.44-1.3.1-2.7 0 0 .83-.27 2.75 1.02a9.45 9.45 0 0 1 5 0c1.91-1.29 2.74-1.02 2.74-1.02.55 1.4.21 2.44.11 2.7.63.71 1.02 1.62 1.02 2.74 0 3.93-2.34 4.8-4.57 5.05.36.32.69.94.69 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.59.69.48A10.29 10.29 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
         </a>
       </div>
       <div class="lang-wrapper">
@@ -221,8 +233,7 @@
           <option value="pt">Português</option>
           <option value="fr">Français</option>
         </select>
-        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2"
-             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
           <circle cx="12" cy="12" r="10"/>
           <path d="M2 12h20"/>
           <path d="M12 2a15.3 15.3 0 0 1 0 20"/>
@@ -282,11 +293,19 @@
 
     function initAccordion() {
       document.querySelectorAll(".section-summary").forEach(summary => {
+        const section = summary.closest(".section");
         const details = summary.nextElementSibling;
+
         summary.addEventListener("click", () => {
           const isOpen = details.classList.toggle("open");
           summary.classList.toggle("active", isOpen);
-          details.style.maxHeight = isOpen ? details.scrollHeight + "px" : "0";
+          section.classList.toggle("open", isOpen);
+
+          if (isOpen) {
+            details.style.maxHeight = details.scrollHeight + "px";
+          } else {
+            details.style.maxHeight = "0";
+          }
         });
       });
     }
