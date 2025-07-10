@@ -35,7 +35,6 @@
       flex: 1 0 auto;
       padding: 20px 0;
       padding-bottom: calc(var(--footer-height) + var(--section-gap) * 2);
-      /* двойной отступ между последней секцией и футером */
     }
     .rtl { direction: rtl; text-align: right; }
     h1 {
@@ -55,7 +54,7 @@
     }
     .section-summary {
       cursor: pointer;
-      background: #222;
+      background: #111; /* Цвет футера */
       padding: 14px 20px;
       display: flex;
       justify-content: space-between;
@@ -65,7 +64,7 @@
       border-radius: 8px;
     }
     .section-summary:hover {
-      background: #2a2a2a;
+      background: #18191c; /* Чуть темнее при наведении */
     }
     .section-summary svg {
       width: 24px;
@@ -148,6 +147,7 @@
       display: flex;
       align-items: center;
       gap: 28px;
+      margin-left: 36px; /* Сдвиг иконок правее */
     }
     .footer-links a {
       width: 32px;
@@ -167,8 +167,8 @@
       align-items: center;
       background: #222;
       border-radius: 6px;
-      padding: 8px 12px;
-      max-width: 300px;
+      padding: 4px 8px;
+      max-width: 120px;
       width: 100%;
       position: relative;
       transition: background 0.2s ease;
@@ -180,18 +180,18 @@
       background: transparent;
       color: #fff;
       border: none;
-      font-size: 16px;
+      font-size: 14px;
       width: 100%;
-      padding-right: 30px;
+      padding-right: 22px;
       appearance: none;
       cursor: pointer;
       outline: none;
     }
     .lang-wrapper svg {
       position: absolute;
-      right: 12px;
-      width: 20px;
-      height: 20px;
+      right: 8px;
+      width: 16px;
+      height: 16px;
       stroke: #aaa;
       fill: none;
       stroke-width: 2;
@@ -212,8 +212,8 @@
       .section { margin: 0 10px var(--section-gap-mobile) 10px; }
       .section-summary { padding: 10px 14px; font-size: 0.9rem; }
       .section-summary svg { width: 20px; height: 18px; }
-      .lang-wrapper select { font-size: 15px; }
-      .lang-wrapper svg { width: 18px; height: 16px; }
+      .lang-wrapper select { font-size: 13px; }
+      .lang-wrapper svg { width: 14px; height: 14px; }
       footer {
         padding: 8px 0 12px 0;
         border-radius: 20px 20px 0 0;
@@ -234,8 +234,8 @@
         height: 14px;
       }
       .language-selector { gap: 24px; }
-      .footer-links { gap: 18px; }
-      .lang-wrapper { margin-left: 6px; }
+      .footer-links { gap: 18px; margin-left: 16px; }
+      .lang-wrapper { margin-left: 6px; max-width: 90px; padding: 2px 5px;}
     }
   </style>
 </head>
@@ -383,7 +383,6 @@
               const footer = document.querySelector('footer');
               const sectionRect = details.getBoundingClientRect();
               const footerRect = footer.getBoundingClientRect();
-              // вычисляем расстояние между низом секции и футером
               const gap = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--section-gap')) * 2;
               if (sectionRect.bottom > footerRect.top - gap) {
                 window.scrollBy({
