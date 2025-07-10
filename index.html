@@ -5,35 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zatex Bot Help</title>
   <style>
+    :root {
+      --footer-height: 80px;
+      --footer-height-mobile: 60px;
+      --section-gap: 20px;
+      --section-gap-mobile: 15px;
+    }
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; padding: 0; }
     html { height: 100%; }
     body {
       min-height: 100vh;
-      /* Максимально мягкий и дорогой градиент */
-      background:
-        radial-gradient(ellipse at 70% 0%, rgba(60,60,70,0.18) 0%, rgba(0,0,0,0) 70%),
-        linear-gradient(155deg,
-          #181a1a 0%,
-          #191b1c 15%,
-          #1c1e20 35%,
-          #202225 50%,
-          #232629 65%,
-          #26292c 80%,
-          #232629 90%,
-          #181a1a 100%
-        );
+      background: 
+        radial-gradient(ellipse at 50% 0%, rgba(60,60,60,0.17) 0%, rgba(0,0,0,0) 80%),
+        linear-gradient(150deg, #18191c 0%, #23272e 100%);
       color: #eee;
       font-family: sans-serif;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
       scroll-behavior: smooth;
-      padding: 20px;
+      padding: 0;
       transition: background 0.5s;
       background-repeat: no-repeat;
       background-attachment: fixed;
       position: relative;
+    }
+    .content {
+      flex: 1 0 auto;
+      padding: 20px 0;
+      padding-bottom: calc(var(--footer-height) + var(--section-gap) * 2);
+      /* двойной отступ между последней секцией и футером */
     }
     .rtl { direction: rtl; text-align: right; }
     h1 {
@@ -41,19 +43,16 @@
       margin: 20px 0;
       font-size: 1.8rem;
     }
-
     .section {
-      margin: 0 20px 20px;
+      margin: 0 20px var(--section-gap) 20px;
       overflow: visible;
       background: #222;
       border-radius: 8px;
       transition: border-radius 0.3s ease;
     }
-
     .section.open {
       border-radius: 8px;
     }
-
     .section-summary {
       cursor: pointer;
       background: #222;
@@ -65,11 +64,9 @@
       font-size: 1rem;
       border-radius: 8px;
     }
-
     .section-summary:hover {
       background: #2a2a2a;
     }
-
     .section-summary svg {
       width: 24px;
       height: 24px;
@@ -77,11 +74,9 @@
       fill: #aaa;
       margin-left: 10px;
     }
-
     .section-summary.active svg {
       transform: rotate(180deg);
     }
-
     .section-details {
       background: #111;
       max-height: 0;
@@ -94,7 +89,6 @@
       border-radius: 0 0 8px 8px;
       position: relative;
     }
-
     .section-details.open {
       opacity: 1;
       padding: 14px 20px 0 20px;
@@ -106,25 +100,22 @@
       height: 14px;
       width: 100%;
     }
-
     ul { padding-left: 20px; margin: 10px 0; }
     li { margin-bottom: 10px; }
     p { margin: 12px 0; }
 
-    /* Контейнер для футера, чтобы фон под ним был всегда черным */
     .footer-bg {
       position: fixed;
       left: 0;
       right: 0;
       bottom: 0;
-      height: 80px;
+      height: var(--footer-height);
       background: #111;
       z-index: 0;
       pointer-events: none;
       border-radius: 20px 20px 0 0;
       transition: border-radius 0.2s;
     }
-
     footer {
       position: fixed;
       left: 0;
@@ -143,21 +134,21 @@
       box-sizing: border-box;
       width: 100%;
       max-width: 100vw;
+      height: var(--footer-height);
     }
-
     .language-selector {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 40px;
+      gap: 48px;
+      width: 100%;
+      max-width: 500px;
     }
-
     .footer-links {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 28px;
     }
-
     .footer-links a {
       width: 32px;
       height: 32px;
@@ -168,10 +159,9 @@
       justify-content: center;
       text-decoration: none;
     }
-
     .footer-links a:hover { color: #fff; }
     .footer-links svg { width: 24px; height: 24px; fill: currentColor; }
-
+    .footer-links .tiktok svg { width: 28px; height: 28px; }
     .lang-wrapper {
       display: flex;
       align-items: center;
@@ -182,11 +172,10 @@
       width: 100%;
       position: relative;
       transition: background 0.2s ease;
+      margin-left: 12px;
     }
-
     .lang-wrapper:hover,
     .lang-wrapper:focus-within { background: #2a2a2a; }
-
     .lang-wrapper select {
       background: transparent;
       color: #fff;
@@ -198,7 +187,6 @@
       cursor: pointer;
       outline: none;
     }
-
     .lang-wrapper svg {
       position: absolute;
       right: 12px;
@@ -211,11 +199,17 @@
       stroke-linejoin: round;
       pointer-events: none;
     }
-
     @media (max-width: 600px) {
-      body { padding: 10px; }
+      :root {
+        --footer-height: var(--footer-height-mobile);
+        --section-gap: var(--section-gap-mobile);
+      }
+      .content {
+        padding: 10px 0;
+        padding-bottom: calc(var(--footer-height-mobile) + var(--section-gap-mobile) * 2);
+      }
       h1 { font-size: 1.5rem; margin: 15px 0; }
-      .section { margin: 0 10px 15px; }
+      .section { margin: 0 10px var(--section-gap-mobile) 10px; }
       .section-summary { padding: 10px 14px; font-size: 0.9rem; }
       .section-summary svg { width: 20px; height: 18px; }
       .lang-wrapper select { font-size: 15px; }
@@ -227,9 +221,10 @@
         left: 0;
         right: 0;
         max-width: 100vw;
+        height: var(--footer-height-mobile);
       }
       .footer-bg {
-        height: 60px;
+        height: var(--footer-height-mobile);
         border-radius: 20px 20px 0 0;
       }
       .section-details.open {
@@ -238,52 +233,48 @@
       .section-details.open::after {
         height: 14px;
       }
-    }
-    /* Чтобы футер не перекрывал контент */
-    body {
-      padding-bottom: 110px;
-    }
-    @media (max-width: 600px) {
-      body {
-        padding-bottom: 80px;
-      }
+      .language-selector { gap: 24px; }
+      .footer-links { gap: 18px; }
+      .lang-wrapper { margin-left: 6px; }
     }
   </style>
 </head>
 <body>
-  <h1 id="title">Zatex Bot Help</h1>
-  <div class="section" id="section1">
-    <div class="section-summary" id="section1_title">
-      Parameters — what does each one control?
-      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+  <main class="content">
+    <h1 id="title">Zatex Bot Help</h1>
+    <div class="section" id="section1">
+      <div class="section-summary" id="section1_title">
+        Parameters — what does each one control?
+        <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+      </div>
+      <div class="section-details" id="section1_content">
+        <p>Тестовый текст для проверки отступов.</p>
+      </div>
     </div>
-    <div class="section-details" id="section1_content">
-      <p>Тестовый текст для проверки отступов.</p>
+    <div class="section" id="section2">
+      <div class="section-summary" id="section2_title">
+        Soft pity — what is it and how does it work?
+        <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+      </div>
+      <div class="section-details" id="section2_content"></div>
     </div>
-  </div>
-  <div class="section" id="section2">
-    <div class="section-summary" id="section2_title">
-      Soft pity — what is it and how does it work?
-      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+    <div class="section" id="section3">
+      <div class="section-summary" id="section3_title">
+        Simulation modes — what's the difference?
+        <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+      </div>
+      <div class="section-details" id="section3_content"></div>
     </div>
-    <div class="section-details" id="section2_content"></div>
-  </div>
-  <div class="section" id="section3">
-    <div class="section-summary" id="section3_title">
-      Simulation modes — what's the difference?
-      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+    <div class="section" id="section4">
+      <div class="section-summary" id="section4_title">
+        Limits — why do they exist and how to bypass?
+        <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+      </div>
+      <div class="section-details" id="section4_content">
+        <p>Due to Telegram and resource limits, the bot enforces caps: max 1000 pulls per simulation and 100,000 simulations. This prevents lag and overload. For larger volumes, consider the console version (in development).</p>
+      </div>
     </div>
-    <div class="section-details" id="section3_content"></div>
-  </div>
-  <div class="section" id="section4">
-    <div class="section-summary" id="section4_title">
-      Limits — why do they exist and how to bypass?
-      <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
-    </div>
-    <div class="section-details" id="section4_content">
-      <p>Due to Telegram and resource limits, the bot enforces caps: max 1000 pulls per simulation and 100,000 simulations. This prevents lag and overload. For larger volumes, consider the console version (in development).</p>
-    </div>
-  </div>
+  </main>
   <div class="footer-bg"></div>
   <footer>
     <div class="language-selector">
@@ -293,6 +284,15 @@
         </a>
         <a href="https://github.com/xxxnamed/Zatex" target="_blank" aria-label="GitHub">
           <svg viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.48 2 2 6.58 2 12.26c0 4.5 2.87 8.31 6.84 9.66.5.1.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.61-3.37-1.37-3.37-1.37-.45-1.17-1.1-1.49-1.1-1.49-.9-.63.07-.62.07-.62 1 .08 1.53 1.06 1.53 1.06.89 1.56 2.34 1.1 2.91.84.09-.66.35-1.1.63-1.35-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.02-2.74-.1-.26-.44-1.3.1-2.7 0 0 .83-.27 2.75 1.02a9.45 9.45 0 0 1 5 0c1.91-1.29 2.74-1.02 2.74-1.02.55 1.4.21 2.44.11 2.7.63.71 1.02 1.62 1.02 2.74 0 3.93-2.34 4.8-4.57 5.05.36.32.69.94.69 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.59.69.48A10.29 10.29 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@xxxnamed?_t=ZN-8xvAOGDBj3m&_r=1" target="_blank" aria-label="TikTok" class="tiktok">
+          <svg width="28px" height="28px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" fill-rule="evenodd">
+              <path
+                d="M35.31 21.04c2.76.05 5.52.05 5.52.05v-5.23c-1.55-.07-3.05-.53-4.37-1.31-1.32-.78-2.45-1.9-3.21-3.23-.52-.92-.88-1.92-1.03-2.96h-5.23v23.58c0 3.17-2.57 5.74-5.74 5.74-1.53 0-2.97-.6-4.05-1.68-1.08-1.08-1.68-2.52-1.68-4.05 0-3.17 2.57-5.74 5.74-5.74.2 0 .4.01.6.03v-5.23c-.2-.01-.4-.02-.6-.02-6.04 0-10.96 4.92-10.96 10.96 0 2.93 1.14 5.69 3.21 7.76 2.07 2.07 4.83 3.21 7.76 3.21 6.04 0 10.96-4.92 10.96-10.96V21.04z"
+                fill="#FFFFFF"/>
+            </g>
+          </svg>
         </a>
       </div>
       <div class="lang-wrapper">
@@ -377,6 +377,22 @@
           details.style.maxHeight = isOpen
             ? (details.scrollHeight + 5) + "px"
             : "0";
+          // Если секция открыта и видна не полностью, скроллим к ней с учётом футера и отступа
+          if (isOpen) {
+            setTimeout(() => {
+              const footer = document.querySelector('footer');
+              const sectionRect = details.getBoundingClientRect();
+              const footerRect = footer.getBoundingClientRect();
+              // вычисляем расстояние между низом секции и футером
+              const gap = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--section-gap')) * 2;
+              if (sectionRect.bottom > footerRect.top - gap) {
+                window.scrollBy({
+                  top: sectionRect.bottom - footerRect.top + gap,
+                  behavior: 'smooth'
+                });
+              }
+            }, 200);
+          }
         });
       });
     }
