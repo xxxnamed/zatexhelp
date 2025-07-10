@@ -8,7 +8,12 @@
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; height: 100%; }
     body {
-      background: linear-gradient(150deg, #000, #444);
+      background: linear-gradient(150deg,
+        #000000 0%,
+        #0d0d0d 25%,
+        #1a1a1a 50%,
+        #2b2b2b 75%,
+        #444444 100%);
       color: #eee;
       font-family: sans-serif;
       display: flex;
@@ -53,7 +58,7 @@
     .section-summary svg {
       width: 24px;
       height: 24px;
-      transition: transform 0.7s ease, opacity 0.4s ease;
+      transition: transform 0.5s, opacity 0.4s;
       fill: #aaa;
       margin-left: 10px;
     }
@@ -75,8 +80,8 @@
 
     .section-details.open {
       opacity: 1;
-      padding: 20px 20px;
-      /* Не ставим max-height здесь, управляем через JS */
+      padding: 15px 20px;
+      /* max-height управляется через JS */
     }
 
     ul { padding-left: 20px; margin: 10px 0; }
@@ -274,19 +279,17 @@
       const langData = translations[lang] || translations.en;
       titleElement.textContent = langData.title;
       for (let i = 0; i < sectionTitles.length; i++) {
-        setSectionTitle(sectionTitles[i], langData['section' + (i + 1) + '_title']);
-        sectionContents[i].innerHTML = langData['section' + (i + 1) + '_content'];
+        setSectionTitle(sectionTitles[i], langData[`section${i + 1}_title`]);
+        sectionContents[i].innerHTML = langData[`section${i + 1}_content`];
       }
       document.body.classList.toggle("rtl", lang === "ar");
       langSelector.value = lang;
       localStorage.setItem("preferredLang", lang);
-      // Обновляем max-height для открытых секций после смены содержимого:
       updateOpenSectionsMaxHeight();
     }
 
     function updateOpenSectionsMaxHeight() {
       document.querySelectorAll(".section-details.open").forEach(details => {
-        // небольшой запас для высоты (5px)
         details.style.maxHeight = (details.scrollHeight + 5) + "px";
       });
     }
@@ -311,7 +314,6 @@
           section.classList.toggle("open", isOpen);
 
           if (isOpen) {
-            // Обновляем max-height с запасом
             details.style.maxHeight = (details.scrollHeight + 5) + "px";
           } else {
             details.style.maxHeight = "0";
