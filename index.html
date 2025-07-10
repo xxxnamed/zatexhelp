@@ -8,7 +8,7 @@
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; height: 100%; }
     body {
-      background-color: #000;
+      background: linear-gradient(150deg, #000, #444);
       color: #eee;
       font-family: sans-serif;
       display: flex;
@@ -53,7 +53,7 @@
     .section-summary svg {
       width: 24px;
       height: 24px;
-      transition: transform 0.5s, opacity 0.4s;
+      transition: transform 0.7s ease, opacity 0.4s ease;
       fill: #aaa;
       margin-left: 10px;
     }
@@ -75,8 +75,8 @@
 
     .section-details.open {
       opacity: 1;
-      padding: 15px 20px;
-      /* Не ставим max-height тут, управляем через JS */
+      padding: 20px 20px;
+      /* Не ставим max-height здесь, управляем через JS */
     }
 
     ul { padding-left: 20px; margin: 10px 0; }
@@ -274,8 +274,8 @@
       const langData = translations[lang] || translations.en;
       titleElement.textContent = langData.title;
       for (let i = 0; i < sectionTitles.length; i++) {
-        setSectionTitle(sectionTitles[i], langData[`section${i + 1}_title`]);
-        sectionContents[i].innerHTML = langData[`section${i + 1}_content`];
+        setSectionTitle(sectionTitles[i], langData['section' + (i + 1) + '_title']);
+        sectionContents[i].innerHTML = langData['section' + (i + 1) + '_content'];
       }
       document.body.classList.toggle("rtl", lang === "ar");
       langSelector.value = lang;
