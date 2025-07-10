@@ -10,10 +10,11 @@
       --footer-height-mobile: 60px;
       --section-gap: 20px;
       --section-gap-mobile: 15px;
+      --footer-icon-size: 48px;
+      --footer-icon-size-mobile: 36px;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; margin: 0; padding: 0; }
-    html { height: 100%; }
     body {
       min-height: 100vh;
       background: 
@@ -147,40 +148,44 @@
       display: flex;
       align-items: center;
       gap: 28px;
-      margin-left: 9px; /* Было 18px, стало 9px (ещё ближе к левому краю) */
+      margin-left: 0;
+      /* чтобы блок иконок был прижат к левому краю наравне с lang-wrapper */
     }
     .footer-links a {
-      width: 32px;
-      height: 32px;
+      width: var(--footer-icon-size);
+      height: var(--footer-icon-size);
       color: #aaa;
       transition: color 0.2s;
       display: flex;
       align-items: center;
       justify-content: center;
       text-decoration: none;
+      background: #222;
+      border-radius: 8px;
+      /* для визуального баланса с lang-wrapper */
     }
-    .footer-links a:hover { color: #fff; }
+    .footer-links a:hover { color: #fff; background: #23272e; }
     .footer-links svg {
-      width: 24px !important;
-      height: 24px !important;
+      width: 32px;
+      height: 32px;
       fill: currentColor;
       display: block;
-    }
-    .footer-links .tiktok svg {
-      width: 24px !important;
-      height: 24px !important;
+      /* увеличиваем SVG внутри блока */
     }
     .lang-wrapper {
       display: flex;
       align-items: center;
       background: #222;
-      border-radius: 6px;
-      padding: 10px 20px; /* Стала больше */
+      border-radius: 8px;
+      padding: 0 20px;
+      height: var(--footer-icon-size);
+      min-width: 120px;
       max-width: 180px;
-      width: 100%;
+      width: auto;
       position: relative;
       transition: background 0.2s ease;
-      margin-left: 0px; /* Слегка левее, но не много */
+      margin-left: 0;
+      font-size: 18px;
     }
     .lang-wrapper:hover,
     .lang-wrapper:focus-within { background: #2a2a2a; }
@@ -194,6 +199,7 @@
       appearance: none;
       cursor: pointer;
       outline: none;
+      height: 100%;
     }
     .lang-wrapper svg {
       position: absolute;
@@ -211,6 +217,7 @@
       :root {
         --footer-height: var(--footer-height-mobile);
         --section-gap: var(--section-gap-mobile);
+        --footer-icon-size: var(--footer-icon-size-mobile);
       }
       .content {
         padding: 10px 0;
@@ -242,10 +249,10 @@
         height: 14px;
       }
       .language-selector { gap: 20px; }
-      .footer-links { gap: 14px; margin-left: 4px; }
-      .lang-wrapper { margin-left: 0; max-width: 120px; padding: 6px 10px;}
-      .footer-links svg { width: 20px !important; height: 20px !important; }
-      .footer-links .tiktok svg { width: 20px !important; height: 20px !important; }
+      .footer-links { gap: 12px; }
+      .footer-links a { border-radius: 6px; }
+      .footer-links svg { width: 24px; height: 24px; }
+      .lang-wrapper { min-width: 80px; max-width: 120px; font-size: 15px; border-radius: 6px; height: var(--footer-icon-size); padding: 0 10px;}
     }
   </style>
 </head>
