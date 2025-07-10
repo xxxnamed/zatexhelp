@@ -54,7 +54,7 @@
     }
     .section-summary {
       cursor: pointer;
-      background: #111; /* Цвет футера */
+      background: #111;
       padding: 14px 20px;
       display: flex;
       justify-content: space-between;
@@ -64,7 +64,7 @@
       border-radius: 8px;
     }
     .section-summary:hover {
-      background: #18191c; /* Чуть темнее при наведении */
+      background: #18191c;
     }
     .section-summary svg {
       width: 24px;
@@ -147,7 +147,7 @@
       display: flex;
       align-items: center;
       gap: 28px;
-      margin-left: 36px; /* Сдвиг иконок правее */
+      margin-left: 18px; /* Было 36px, теперь 18px (50% ближе к левому краю) */
     }
     .footer-links a {
       width: 32px;
@@ -167,12 +167,12 @@
       align-items: center;
       background: #222;
       border-radius: 6px;
-      padding: 4px 8px;
-      max-width: 120px;
+      padding: 7px 14px;
+      max-width: 150px;
       width: 100%;
       position: relative;
       transition: background 0.2s ease;
-      margin-left: 12px;
+      margin-left: 6px; /* Чуть левее, но не много */
     }
     .lang-wrapper:hover,
     .lang-wrapper:focus-within { background: #2a2a2a; }
@@ -180,9 +180,9 @@
       background: transparent;
       color: #fff;
       border: none;
-      font-size: 14px;
+      font-size: 16px;
       width: 100%;
-      padding-right: 22px;
+      padding-right: 24px;
       appearance: none;
       cursor: pointer;
       outline: none;
@@ -190,8 +190,8 @@
     .lang-wrapper svg {
       position: absolute;
       right: 8px;
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       stroke: #aaa;
       fill: none;
       stroke-width: 2;
@@ -212,7 +212,7 @@
       .section { margin: 0 10px var(--section-gap-mobile) 10px; }
       .section-summary { padding: 10px 14px; font-size: 0.9rem; }
       .section-summary svg { width: 20px; height: 18px; }
-      .lang-wrapper select { font-size: 13px; }
+      .lang-wrapper select { font-size: 14px; }
       .lang-wrapper svg { width: 14px; height: 14px; }
       footer {
         padding: 8px 0 12px 0;
@@ -233,9 +233,9 @@
       .section-details.open::after {
         height: 14px;
       }
-      .language-selector { gap: 24px; }
-      .footer-links { gap: 18px; margin-left: 16px; }
-      .lang-wrapper { margin-left: 6px; max-width: 90px; padding: 2px 5px;}
+      .language-selector { gap: 20px; }
+      .footer-links { gap: 16px; margin-left: 9px; }
+      .lang-wrapper { margin-left: 3px; max-width: 110px; padding: 4px 8px;}
     }
   </style>
 </head>
