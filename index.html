@@ -79,7 +79,8 @@
 
     .section-details.open {
       opacity: 1;
-      padding: 14px 20px 30px; /* добавлен снизу padding для места */
+      /* одинаковые отступы сверху и снизу */
+      padding: 14px 20px 14px;
     }
 
     ul { padding-left: 20px; margin: 10px 0; }
@@ -287,7 +288,7 @@
 
     function updateOpenSectionsMaxHeight() {
       document.querySelectorAll(".section-details.open").forEach(details => {
-        details.style.maxHeight = (details.scrollHeight + 5) + "px";
+        details.style.maxHeight = details.scrollHeight + "px";
       });
     }
 
@@ -308,7 +309,7 @@
           summary.classList.toggle("active", isOpen);
           summary.closest(".section").classList.toggle("open", isOpen);
           details.style.maxHeight = isOpen
-            ? (details.scrollHeight + 5) + "px"
+            ? details.scrollHeight + "px"
             : "0";
         });
       });
