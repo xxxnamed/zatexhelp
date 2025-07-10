@@ -17,7 +17,6 @@
       scroll-behavior: smooth;
       padding: 20px;
     }
-
     .rtl { direction: rtl; text-align: right; }
 
     h1 {
@@ -29,6 +28,7 @@
     .section {
       margin: 0 20px 20px;
       overflow: visible;
+      background: #222;
       border-radius: 8px;
       transition: border-radius 0.3s ease;
     }
@@ -46,9 +46,12 @@
       align-items: center;
       transition: background 0.3s ease;
       font-size: 1rem;
+      border-radius: 8px;
     }
 
-    .section-summary:hover { background: #2a2a2a; }
+    .section-summary:hover {
+      background: #2a2a2a;
+    }
 
     .section-summary svg {
       width: 24px;
@@ -71,11 +74,13 @@
       padding: 0 20px;
       border-top: 1px solid #333;
       width: 100%;
+      border-radius: 0 0 8px 8px;
     }
 
     .section-details.open {
       opacity: 1;
-      padding: 11px 20px; /* 25% reduced (15px → 11px), equal top & bottom */
+      /* одинаковый паддинг сверху и снизу */
+      padding: 14px 20px;
     }
 
     ul { padding-left: 20px; margin: 10px 0; }
