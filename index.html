@@ -74,13 +74,20 @@
       border-top: 1px solid #333;
       width: 100%;
       border-radius: 0 0 8px 8px;
+      position: relative;
     }
 
     .section-details.open {
       opacity: 1;
-      padding: 14px 20px 14px 20px;
-      display: flex;
-      flex-direction: column;
+      padding: 14px 20px 0 20px; /* только верхний padding, низ убираем */
+      display: block;
+    }
+    /* Псевдоэлемент для создания отступа снизу */
+    .section-details.open::after {
+      content: "";
+      display: block;
+      height: 14px;
+      width: 100%;
     }
 
     ul { padding-left: 20px; margin: 10px 0; }
@@ -179,6 +186,12 @@
         margin-right: -10px;
         width: calc(100% + 20px);
         padding-bottom: 40px;
+      }
+      .section-details.open {
+        padding: 14px 14px 0 14px;
+      }
+      .section-details.open::after {
+        height: 14px;
       }
     }
   </style>
